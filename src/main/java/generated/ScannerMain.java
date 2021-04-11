@@ -1,5 +1,5 @@
-// Generated from C:/Users/M-ROD/OneDrive/Documents/TEC-I2021/Compi/backendJava/backendJava/src/main/java/configG4\MiScanner.g4 by ANTLR 4.9.1
-package genereted;
+// Generated from C:/Users/M-ROD/OneDrive/Documents/TEC-I2021/Compi/backendJava/backendJava/src/main/java/confG4\ScannerMain.g4 by ANTLR 4.9.1
+package generated;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;
@@ -10,7 +10,7 @@ import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.misc.*;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
-public class MiScanner extends Lexer {
+public class ScannerMain extends Lexer {
 	static { RuntimeMetaData.checkVersion("4.9.1", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
@@ -87,13 +87,13 @@ public class MiScanner extends Lexer {
 	}
 
 
-	public MiScanner(CharStream input) {
+	public ScannerMain(CharStream input) {
 		super(input);
 		_interp = new LexerATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 
 	@Override
-	public String getGrammarFileName() { return "MiScanner.g4"; }
+	public String getGrammarFileName() { return "ScannerMain.g4"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }
