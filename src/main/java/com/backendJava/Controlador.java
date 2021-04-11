@@ -13,15 +13,14 @@ import java.util.List;
 @RestController
 @RequestMapping({"/personas"})
 public class Controlador {
-    //Autowired
-    //PersonaService service;
+
 
     List<Persona> lista = new ArrayList<Persona>();
 
     @GetMapping
     public List<Persona> listar(){
-        System.out.println("llegó acá");
-        lista.clear();  
+        System.out.println("lista usuarios");
+        lista.clear();
         Persona p1 = new Persona(1,"Mere","Rodriguez");
         Persona p2 = new Persona(2,"Pepito","Perez");
         lista.add(p1);
