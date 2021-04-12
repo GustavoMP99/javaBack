@@ -1,36 +1,57 @@
 lexer grammar ScannerMain;
-// **** TOKENS ****
 
-//símbolos
-PyCOMA  : ';' ;
-ASSIGN  : ':=';
-PIZQ    : '(';
-PDER    : ')';
-VIR     : '~';
-DOSPUN  : ':';
-SUM     : '+';
-SUB     : '-';
-MUL     : '*';
-DIV     : '/';
+//Reserved
+IF      :   'if';
+ELSE    :   'else';
+RETURN  :   'return';
+CLASS   :   'class';
+NEW     :   'new';
+STRING  :   'string';
+INT     :   'int';
+BOOLEAN :   'boolean';
+LENGTH  :   'length';
+WHILE   :   'while';
+TRUE    :   'true';
+FALSE   :   'false';
+OR      :   'or';
+PRINT   :   'print';
+AND     :   'and';
+CHAR    :   'char';
 
-//palabras reservadas
-IF      : 'if' ;
-WHILE   : 'while' ;
-LET     : 'let';
-THEN    : 'then';
-ELSE    : 'else';
-IN      : 'in';
-DO      : 'do';
-BEGIN   : 'begin';
-END     : 'end';
-CONST   : 'const';
-VAR     : 'var';
+//Symbols
+EQUAL       :   '=';
+LEFTP       :   '(';
+RIGTHP      :   ')';
+LEFTPB      :   '{';
+RIGTHPB     :   '}';
+LEFTPC      :   '[';
+RIGTHPC     :   ']';
+SEMICOLON   :   ';';
+POINT       :   '.';
+ALERT       :   '!';
+IDENTICAL   :   '==';
+COMA        :   ',';
+MINUS       :   '<';
+MAX         :   '>';
+DIF         :   '!=';
+MINUSEQUAL  :   '<=';
+MAXEQUAL    :   '>=';
+UNDERSCORE  :   '_';
+EXTRA       :   '"';
 
-ID  : LETTER (LETTER|DIGIT)* ;
-NUM : DIGIT DIGIT* ;
-OPE : SUM | SUB | MUL | DIV;
+//Operators
+SUM         :   '+';
+SUBTRACT    :   '-';
+MULT        :   '*';
+DIV         :   '/';
 
-fragment LETTER : 'a'..'z' | 'A'..'Z';
-fragment DIGIT : '0'..'9' ;
 
-WS  :   [ \t\n\r]+ -> skip ;
+WS          :   [ \r\t\n]+ -> skip;
+COMMENT     :   ('//')(LETTER|DIGIT|[ \r\t\n]|'@#$%^&*!_-+=.,><?/`"')*; //???????????
+
+//Fragments
+
+ LETTER     : [a-zA-Z];
+ DIGIT      :   [0-9];
+ PRINTABLE  :   EXTRA (LETTER | DIGIT |' '| ALERT | EXTRA | '#' | '$' | '%' | '&'  | '\'' | LEFTP | RIGTHP | MULT | SUM | COMA | SUBTRACT | POINT | DIV | ':'
+                | SEMICOLON | MINUS | EQUAL | MAX | '?' | '@' | LEFTPC | '\\' | RIGTHPC | '^' | UNDERSCORE | '`' | LEFTPB | '|' | RIGTHPB | '~' )* EXTRA;
