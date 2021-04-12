@@ -66,10 +66,5 @@ parser grammar ParserMain;
                          | REALLITERAL
                          | booleanLiteral
                          | STRINGLITERAL;
- //intLiteral         :   DIGIT(DIGIT)*;
 
- //stringLiteral      :   PRINTABLE(PRINTABLE)*;
-
- booleanLiteral     :   TRUE|FALSE;
- //realLiteral         :   DIGIT(DIGIT)* POINT (DIGIT)*
-  //                       |POINT DIGIT (DIGIT)*;
+ booleanLiteral  :   TRUE|FALSE;

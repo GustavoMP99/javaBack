@@ -82,45 +82,36 @@ public class Controlador {
 
             if (errorListener.hasErrors() == false) {
                 System.out.println("Compilación Exitosa!!\n");
-
-                System.out.println(tokens.size());
-
-
-                List<Token> lista2 = (List<Token>) inst.getAllTokens();
                 for (Token t : tokens.getTokens()) {
                     System.out.println(ScannerMain.VOCABULARY.getSymbolicName(t.getType()) + ":" + t.getText());
-                }
-
-
-
-                /*int cont=0;
-                while (cont < tokens.size()-1){
-                    //System.out.println(inst.getRuleNames()[tokens.get(cont).getType() -1]);
-
-
-                    System.out.println(ScannerMain.VOCABULARY.getSymbolicName(tokens.get(cont).getType())+tokens.get(cont).getText());
-
-                    Respuesta nr=new Respuesta(inst.getRuleNames()[tokens.get(cont).getType() -1], tokens.get(cont).getText());
+                    Respuesta nr=new Respuesta(ScannerMain.VOCABULARY.getSymbolicName(t.getType()), t.getText());
 
                     Gson gson = new Gson();
                     String JSON = gson.toJson(nr);
                     respuesta.add(JSON);
-
-                    cont++;
-                }*/
-
-
+                }
                 return respuesta;
             }
             else {
                 System.out.println("Compilación Fallida!!\n");
-                System.out.println();
-                //respuesta.add(errorListener.toString());
+                System.out.println(errorListener.toString());
                 Respuesta nr=new Respuesta(errorListener.toString(), "Error");
                 Gson gson = new Gson();
                 String JSON = gson.toJson(nr);
-                respuesta.add(JSON);
+                System.out.println(JSON);
+
+                //JSON = JSON.replaceAll("u0027","");
+                //JSON = JSON.replaceAll("u003c","");
+                //JSON = JSON.replaceAll("u003e","");
+                //JSON = JSON.replaceAll("u003e","");
+                //JSON = JSON.replaceAll("u0027","");
+                //JSON = JSON.replaceAll("\\\\n","");
+                //JSON = JSON.replaceAll("\\\\","");
+
+                //System.out.println(JSON);
+                respuesta.add(errorListener.toString());
                 return respuesta;
+
             }
         }
         catch ( Exception e) {
