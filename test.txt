@@ -1,16 +1,19 @@
-begin
-    let
-        var x:int
-    in
-        begin
-            x :=3;
-            if x then
-                print(x)
-            else
-                print(0)
-        end
-    ;
-    x := 4
-end
+int x= 10;
+if (x==10){
+    x=x+1;
+}
+else{
+    x=10;
+}
+print(x);
 
-
+class anime {
+    string hola= "DSFA ASDF ASDF "
+};
+while(t!= u or d==3){
+    return false;
+}
+x=u.length;
+char anastacia (int a, char u){
+    return a;
+}

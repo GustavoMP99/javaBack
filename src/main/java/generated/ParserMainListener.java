@@ -8,205 +8,353 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface ParserMainListener extends ParseTreeListener {
 	/**
-	 * Enter a parse tree produced by the {@code programAST}
-	 * labeled alternative in {@link ParserMain#program}.
+	 * Enter a parse tree produced by {@link ParserMain#program}.
 	 * @param ctx the parse tree
 	 */
-	void enterProgramAST(ParserMain.ProgramASTContext ctx);
+	void enterProgram(ParserMain.ProgramContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code programAST}
-	 * labeled alternative in {@link ParserMain#program}.
+	 * Exit a parse tree produced by {@link ParserMain#program}.
 	 * @param ctx the parse tree
 	 */
-	void exitProgramAST(ParserMain.ProgramASTContext ctx);
+	void exitProgram(ParserMain.ProgramContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code commandAST}
-	 * labeled alternative in {@link ParserMain#command}.
+	 * Enter a parse tree produced by {@link ParserMain#statement}.
 	 * @param ctx the parse tree
 	 */
-	void enterCommandAST(ParserMain.CommandASTContext ctx);
+	void enterStatement(ParserMain.StatementContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code commandAST}
-	 * labeled alternative in {@link ParserMain#command}.
+	 * Exit a parse tree produced by {@link ParserMain#statement}.
 	 * @param ctx the parse tree
 	 */
-	void exitCommandAST(ParserMain.CommandASTContext ctx);
+	void exitStatement(ParserMain.StatementContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code assingSCAST}
-	 * labeled alternative in {@link ParserMain#singleCommand}.
+	 * Enter a parse tree produced by {@link ParserMain#block}.
 	 * @param ctx the parse tree
 	 */
-	void enterAssingSCAST(ParserMain.AssingSCASTContext ctx);
+	void enterBlock(ParserMain.BlockContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code assingSCAST}
-	 * labeled alternative in {@link ParserMain#singleCommand}.
+	 * Exit a parse tree produced by {@link ParserMain#block}.
 	 * @param ctx the parse tree
 	 */
-	void exitAssingSCAST(ParserMain.AssingSCASTContext ctx);
+	void exitBlock(ParserMain.BlockContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code callSCAST}
-	 * labeled alternative in {@link ParserMain#singleCommand}.
+	 * Enter a parse tree produced by {@link ParserMain#funtionDecl}.
 	 * @param ctx the parse tree
 	 */
-	void enterCallSCAST(ParserMain.CallSCASTContext ctx);
+	void enterFuntionDecl(ParserMain.FuntionDeclContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code callSCAST}
-	 * labeled alternative in {@link ParserMain#singleCommand}.
+	 * Exit a parse tree produced by {@link ParserMain#funtionDecl}.
 	 * @param ctx the parse tree
 	 */
-	void exitCallSCAST(ParserMain.CallSCASTContext ctx);
+	void exitFuntionDecl(ParserMain.FuntionDeclContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code ifSCAST}
-	 * labeled alternative in {@link ParserMain#singleCommand}.
+	 * Enter a parse tree produced by {@link ParserMain#formalParams}.
 	 * @param ctx the parse tree
 	 */
-	void enterIfSCAST(ParserMain.IfSCASTContext ctx);
+	void enterFormalParams(ParserMain.FormalParamsContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code ifSCAST}
-	 * labeled alternative in {@link ParserMain#singleCommand}.
+	 * Exit a parse tree produced by {@link ParserMain#formalParams}.
 	 * @param ctx the parse tree
 	 */
-	void exitIfSCAST(ParserMain.IfSCASTContext ctx);
+	void exitFormalParams(ParserMain.FormalParamsContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code whileSCAST}
-	 * labeled alternative in {@link ParserMain#singleCommand}.
+	 * Enter a parse tree produced by {@link ParserMain#formalParam}.
 	 * @param ctx the parse tree
 	 */
-	void enterWhileSCAST(ParserMain.WhileSCASTContext ctx);
+	void enterFormalParam(ParserMain.FormalParamContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code whileSCAST}
-	 * labeled alternative in {@link ParserMain#singleCommand}.
+	 * Exit a parse tree produced by {@link ParserMain#formalParam}.
 	 * @param ctx the parse tree
 	 */
-	void exitWhileSCAST(ParserMain.WhileSCASTContext ctx);
+	void exitFormalParam(ParserMain.FormalParamContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code letSCAST}
-	 * labeled alternative in {@link ParserMain#singleCommand}.
+	 * Enter a parse tree produced by {@link ParserMain#whileStatement}.
 	 * @param ctx the parse tree
 	 */
-	void enterLetSCAST(ParserMain.LetSCASTContext ctx);
+	void enterWhileStatement(ParserMain.WhileStatementContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code letSCAST}
-	 * labeled alternative in {@link ParserMain#singleCommand}.
+	 * Exit a parse tree produced by {@link ParserMain#whileStatement}.
 	 * @param ctx the parse tree
 	 */
-	void exitLetSCAST(ParserMain.LetSCASTContext ctx);
+	void exitWhileStatement(ParserMain.WhileStatementContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code blockSCAST}
-	 * labeled alternative in {@link ParserMain#singleCommand}.
+	 * Enter a parse tree produced by {@link ParserMain#ifStatement}.
 	 * @param ctx the parse tree
 	 */
-	void enterBlockSCAST(ParserMain.BlockSCASTContext ctx);
+	void enterIfStatement(ParserMain.IfStatementContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code blockSCAST}
-	 * labeled alternative in {@link ParserMain#singleCommand}.
+	 * Exit a parse tree produced by {@link ParserMain#ifStatement}.
 	 * @param ctx the parse tree
 	 */
-	void exitBlockSCAST(ParserMain.BlockSCASTContext ctx);
+	void exitIfStatement(ParserMain.IfStatementContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code declarationAST}
-	 * labeled alternative in {@link ParserMain#declaration}.
+	 * Enter a parse tree produced by {@link ParserMain#returnStatement}.
 	 * @param ctx the parse tree
 	 */
-	void enterDeclarationAST(ParserMain.DeclarationASTContext ctx);
+	void enterReturnStatement(ParserMain.ReturnStatementContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code declarationAST}
-	 * labeled alternative in {@link ParserMain#declaration}.
+	 * Exit a parse tree produced by {@link ParserMain#returnStatement}.
 	 * @param ctx the parse tree
 	 */
-	void exitDeclarationAST(ParserMain.DeclarationASTContext ctx);
+	void exitReturnStatement(ParserMain.ReturnStatementContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code constDeclAST}
-	 * labeled alternative in {@link ParserMain#singleDeclaration}.
+	 * Enter a parse tree produced by {@link ParserMain#printStatement}.
 	 * @param ctx the parse tree
 	 */
-	void enterConstDeclAST(ParserMain.ConstDeclASTContext ctx);
+	void enterPrintStatement(ParserMain.PrintStatementContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code constDeclAST}
-	 * labeled alternative in {@link ParserMain#singleDeclaration}.
+	 * Exit a parse tree produced by {@link ParserMain#printStatement}.
 	 * @param ctx the parse tree
 	 */
-	void exitConstDeclAST(ParserMain.ConstDeclASTContext ctx);
+	void exitPrintStatement(ParserMain.PrintStatementContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code varDeclAST}
-	 * labeled alternative in {@link ParserMain#singleDeclaration}.
+	 * Enter a parse tree produced by {@link ParserMain#classDecl}.
 	 * @param ctx the parse tree
 	 */
-	void enterVarDeclAST(ParserMain.VarDeclASTContext ctx);
+	void enterClassDecl(ParserMain.ClassDeclContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code varDeclAST}
-	 * labeled alternative in {@link ParserMain#singleDeclaration}.
+	 * Exit a parse tree produced by {@link ParserMain#classDecl}.
 	 * @param ctx the parse tree
 	 */
-	void exitVarDeclAST(ParserMain.VarDeclASTContext ctx);
+	void exitClassDecl(ParserMain.ClassDeclContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code typeDenoterAST}
-	 * labeled alternative in {@link ParserMain#typeDenoter}.
+	 * Enter a parse tree produced by {@link ParserMain#classVariableDecl}.
 	 * @param ctx the parse tree
 	 */
-	void enterTypeDenoterAST(ParserMain.TypeDenoterASTContext ctx);
+	void enterClassVariableDecl(ParserMain.ClassVariableDeclContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code typeDenoterAST}
-	 * labeled alternative in {@link ParserMain#typeDenoter}.
+	 * Exit a parse tree produced by {@link ParserMain#classVariableDecl}.
 	 * @param ctx the parse tree
 	 */
-	void exitTypeDenoterAST(ParserMain.TypeDenoterASTContext ctx);
+	void exitClassVariableDecl(ParserMain.ClassVariableDeclContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code expressionAST}
-	 * labeled alternative in {@link ParserMain#expression}.
+	 * Enter a parse tree produced by {@link ParserMain#variableDecl}.
 	 * @param ctx the parse tree
 	 */
-	void enterExpressionAST(ParserMain.ExpressionASTContext ctx);
+	void enterVariableDecl(ParserMain.VariableDeclContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code expressionAST}
-	 * labeled alternative in {@link ParserMain#expression}.
+	 * Exit a parse tree produced by {@link ParserMain#variableDecl}.
 	 * @param ctx the parse tree
 	 */
-	void exitExpressionAST(ParserMain.ExpressionASTContext ctx);
+	void exitVariableDecl(ParserMain.VariableDeclContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code numPEAST}
-	 * labeled alternative in {@link ParserMain#primaryExp}.
+	 * Enter a parse tree produced by {@link ParserMain#type}.
 	 * @param ctx the parse tree
 	 */
-	void enterNumPEAST(ParserMain.NumPEASTContext ctx);
+	void enterType(ParserMain.TypeContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code numPEAST}
-	 * labeled alternative in {@link ParserMain#primaryExp}.
+	 * Exit a parse tree produced by {@link ParserMain#type}.
 	 * @param ctx the parse tree
 	 */
-	void exitNumPEAST(ParserMain.NumPEASTContext ctx);
+	void exitType(ParserMain.TypeContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code idPEAST}
-	 * labeled alternative in {@link ParserMain#primaryExp}.
+	 * Enter a parse tree produced by {@link ParserMain#simpleType}.
 	 * @param ctx the parse tree
 	 */
-	void enterIdPEAST(ParserMain.IdPEASTContext ctx);
+	void enterSimpleType(ParserMain.SimpleTypeContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code idPEAST}
-	 * labeled alternative in {@link ParserMain#primaryExp}.
+	 * Exit a parse tree produced by {@link ParserMain#simpleType}.
 	 * @param ctx the parse tree
 	 */
-	void exitIdPEAST(ParserMain.IdPEASTContext ctx);
+	void exitSimpleType(ParserMain.SimpleTypeContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code groupPEAST}
-	 * labeled alternative in {@link ParserMain#primaryExp}.
+	 * Enter a parse tree produced by {@link ParserMain#arrayType}.
 	 * @param ctx the parse tree
 	 */
-	void enterGroupPEAST(ParserMain.GroupPEASTContext ctx);
+	void enterArrayType(ParserMain.ArrayTypeContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code groupPEAST}
-	 * labeled alternative in {@link ParserMain#primaryExp}.
+	 * Exit a parse tree produced by {@link ParserMain#arrayType}.
 	 * @param ctx the parse tree
 	 */
-	void exitGroupPEAST(ParserMain.GroupPEASTContext ctx);
+	void exitArrayType(ParserMain.ArrayTypeContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ParserMain#operador}.
+	 * Enter a parse tree produced by {@link ParserMain#assignment}.
 	 * @param ctx the parse tree
 	 */
-	void enterOperador(ParserMain.OperadorContext ctx);
+	void enterAssignment(ParserMain.AssignmentContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ParserMain#operador}.
+	 * Exit a parse tree produced by {@link ParserMain#assignment}.
 	 * @param ctx the parse tree
 	 */
-	void exitOperador(ParserMain.OperadorContext ctx);
+	void exitAssignment(ParserMain.AssignmentContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ParserMain#arrayAssignament}.
+	 * @param ctx the parse tree
+	 */
+	void enterArrayAssignament(ParserMain.ArrayAssignamentContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ParserMain#arrayAssignament}.
+	 * @param ctx the parse tree
+	 */
+	void exitArrayAssignament(ParserMain.ArrayAssignamentContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ParserMain#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterExpression(ParserMain.ExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ParserMain#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitExpression(ParserMain.ExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ParserMain#simpleExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterSimpleExpression(ParserMain.SimpleExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ParserMain#simpleExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitSimpleExpression(ParserMain.SimpleExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ParserMain#term}.
+	 * @param ctx the parse tree
+	 */
+	void enterTerm(ParserMain.TermContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ParserMain#term}.
+	 * @param ctx the parse tree
+	 */
+	void exitTerm(ParserMain.TermContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ParserMain#factor}.
+	 * @param ctx the parse tree
+	 */
+	void enterFactor(ParserMain.FactorContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ParserMain#factor}.
+	 * @param ctx the parse tree
+	 */
+	void exitFactor(ParserMain.FactorContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ParserMain#unary}.
+	 * @param ctx the parse tree
+	 */
+	void enterUnary(ParserMain.UnaryContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ParserMain#unary}.
+	 * @param ctx the parse tree
+	 */
+	void exitUnary(ParserMain.UnaryContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ParserMain#allocationExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterAllocationExpression(ParserMain.AllocationExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ParserMain#allocationExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitAllocationExpression(ParserMain.AllocationExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ParserMain#arrayAlocationExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterArrayAlocationExpression(ParserMain.ArrayAlocationExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ParserMain#arrayAlocationExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitArrayAlocationExpression(ParserMain.ArrayAlocationExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ParserMain#subExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterSubExpression(ParserMain.SubExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ParserMain#subExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitSubExpression(ParserMain.SubExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ParserMain#funtionCall}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuntionCall(ParserMain.FuntionCallContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ParserMain#funtionCall}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuntionCall(ParserMain.FuntionCallContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ParserMain#actualParams}.
+	 * @param ctx the parse tree
+	 */
+	void enterActualParams(ParserMain.ActualParamsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ParserMain#actualParams}.
+	 * @param ctx the parse tree
+	 */
+	void exitActualParams(ParserMain.ActualParamsContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ParserMain#arrayLookUp}.
+	 * @param ctx the parse tree
+	 */
+	void enterArrayLookUp(ParserMain.ArrayLookUpContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ParserMain#arrayLookUp}.
+	 * @param ctx the parse tree
+	 */
+	void exitArrayLookUp(ParserMain.ArrayLookUpContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ParserMain#arrayLength}.
+	 * @param ctx the parse tree
+	 */
+	void enterArrayLength(ParserMain.ArrayLengthContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ParserMain#arrayLength}.
+	 * @param ctx the parse tree
+	 */
+	void exitArrayLength(ParserMain.ArrayLengthContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ParserMain#relationalOp}.
+	 * @param ctx the parse tree
+	 */
+	void enterRelationalOp(ParserMain.RelationalOpContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ParserMain#relationalOp}.
+	 * @param ctx the parse tree
+	 */
+	void exitRelationalOp(ParserMain.RelationalOpContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ParserMain#additiveOp}.
+	 * @param ctx the parse tree
+	 */
+	void enterAdditiveOp(ParserMain.AdditiveOpContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ParserMain#additiveOp}.
+	 * @param ctx the parse tree
+	 */
+	void exitAdditiveOp(ParserMain.AdditiveOpContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ParserMain#multiplicativeOp}.
+	 * @param ctx the parse tree
+	 */
+	void enterMultiplicativeOp(ParserMain.MultiplicativeOpContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ParserMain#multiplicativeOp}.
+	 * @param ctx the parse tree
+	 */
+	void exitMultiplicativeOp(ParserMain.MultiplicativeOpContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ParserMain#literal}.
+	 * @param ctx the parse tree
+	 */
+	void enterLiteral(ParserMain.LiteralContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ParserMain#literal}.
+	 * @param ctx the parse tree
+	 */
+	void exitLiteral(ParserMain.LiteralContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ParserMain#booleanLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void enterBooleanLiteral(ParserMain.BooleanLiteralContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ParserMain#booleanLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void exitBooleanLiteral(ParserMain.BooleanLiteralContext ctx);
 }
