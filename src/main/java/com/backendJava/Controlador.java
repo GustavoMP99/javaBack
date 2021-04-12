@@ -4,10 +4,7 @@ import org.antlr.v4.runtime.*;
 
 import generated.ScannerMain;
 import org.antlr.v4.runtime.tree.ParseTree;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -20,17 +17,13 @@ import java.util.concurrent.ExecutionException;
 @RequestMapping({"/personas"})
 public class Controlador {
 
-
     List<Persona> lista = new ArrayList<Persona>();
 
     @GetMapping
-    public List<Persona> listar(){
-        System.out.println("lista usuarios");
+    public Integer listar(){
         lista.clear();
         Persona p1 = new Persona(1,"Mere","Rodriguez");
-        Persona p2 = new Persona(2,"Pepito","Perez");
         lista.add(p1);
-        lista.add(p2);
 
 
         ScannerMain inst = null;
@@ -47,9 +40,18 @@ public class Controlador {
         }
         catch ( IOException e) {
             e.printStackTrace();
+            return 500;
         }
 
+        return 200;
+    }
 
-        return lista;
+    @PostMapping
+    public Integer allCode(@RequestBody String code){
+
+        System.out.println("ALL CODE WORKS "+ code);
+
+
+        return 200;
     }
 }
