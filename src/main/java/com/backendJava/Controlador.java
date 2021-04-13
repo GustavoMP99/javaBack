@@ -4,44 +4,17 @@ import org.antlr.v4.runtime.*;
 
 import generated.ScannerMain;
 import org.antlr.v4.runtime.tree.ParseTree;
-import org.springframework.boot.json.GsonJsonParser;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.*;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 import com.google.gson.*;
 
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
-@RequestMapping({"/personas"})
+@RequestMapping({"/compilador"})
 public class Controlador {
 
-
-    @GetMapping
-    public Integer listar(){
-
-        ScannerMain inst = null;
-        ParserMain parser = null;
-        CharStream input=null;
-        CommonTokenStream tokens = null;
-        try {
-            input = CharStreams.fromFileName("test.txt");
-            inst = new ScannerMain(input);
-            tokens = new CommonTokenStream(inst);
-            parser = new ParserMain(tokens);
-            System.out.println("Compilación Terminada!!\n");
-
-        }
-        catch ( IOException e) {
-            e.printStackTrace();
-            return 500;
-        }
-
-        return 200;
-    }
 
     @PostMapping
     public List<String> allCode(@RequestBody String code ){
@@ -100,24 +73,14 @@ public class Controlador {
                 String JSON = gson.toJson(nr);
                 System.out.println(JSON);
 
-                //JSON = JSON.replaceAll("u0027","");
-                //JSON = JSON.replaceAll("u003c","");
-                //JSON = JSON.replaceAll("u003e","");
-                //JSON = JSON.replaceAll("u003e","");
-                //JSON = JSON.replaceAll("u0027","");
-                //JSON = JSON.replaceAll("\\\\n","");
-                //JSON = JSON.replaceAll("\\\\","");
-
-                //System.out.println(JSON);
                 respuesta.add(errorListener.toString());
                 return respuesta;
 
             }
         }
         catch ( Exception e) {
-            System.out.println("CATCH***********");
+            System.out.println("ERROR GETTING ON CATCH");
             e.printStackTrace();
-            //respuesta.add("Hubo un error en el backend");
             Respuesta nr=new Respuesta("Hubo un error en el backend", "Error");
             Gson gson = new Gson();
             String JSON = gson.toJson(nr);
@@ -125,5 +88,4 @@ public class Controlador {
             return respuesta;
         }
     }
-
 }
