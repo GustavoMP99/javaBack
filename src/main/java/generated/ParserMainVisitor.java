@@ -11,121 +11,213 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface ParserMainVisitor<T> extends ParseTreeVisitor<T> {
 	/**
-	 * Visit a parse tree produced by the {@code programAST}
-	 * labeled alternative in {@link ParserMain#program}.
+	 * Visit a parse tree produced by {@link ParserMain#program}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitProgramAST(ParserMain.ProgramASTContext ctx);
+	T visitProgram(ParserMain.ProgramContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code commandAST}
-	 * labeled alternative in {@link ParserMain#command}.
+	 * Visit a parse tree produced by {@link ParserMain#statement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitCommandAST(ParserMain.CommandASTContext ctx);
+	T visitStatement(ParserMain.StatementContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code assingSCAST}
-	 * labeled alternative in {@link ParserMain#singleCommand}.
+	 * Visit a parse tree produced by {@link ParserMain#block}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAssingSCAST(ParserMain.AssingSCASTContext ctx);
+	T visitBlock(ParserMain.BlockContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code callSCAST}
-	 * labeled alternative in {@link ParserMain#singleCommand}.
+	 * Visit a parse tree produced by {@link ParserMain#funtionDecl}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitCallSCAST(ParserMain.CallSCASTContext ctx);
+	T visitFuntionDecl(ParserMain.FuntionDeclContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ifSCAST}
-	 * labeled alternative in {@link ParserMain#singleCommand}.
+	 * Visit a parse tree produced by {@link ParserMain#formalParams}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitIfSCAST(ParserMain.IfSCASTContext ctx);
+	T visitFormalParams(ParserMain.FormalParamsContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code whileSCAST}
-	 * labeled alternative in {@link ParserMain#singleCommand}.
+	 * Visit a parse tree produced by {@link ParserMain#formalParam}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitWhileSCAST(ParserMain.WhileSCASTContext ctx);
+	T visitFormalParam(ParserMain.FormalParamContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code letSCAST}
-	 * labeled alternative in {@link ParserMain#singleCommand}.
+	 * Visit a parse tree produced by {@link ParserMain#whileStatement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitLetSCAST(ParserMain.LetSCASTContext ctx);
+	T visitWhileStatement(ParserMain.WhileStatementContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code blockSCAST}
-	 * labeled alternative in {@link ParserMain#singleCommand}.
+	 * Visit a parse tree produced by {@link ParserMain#ifStatement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitBlockSCAST(ParserMain.BlockSCASTContext ctx);
+	T visitIfStatement(ParserMain.IfStatementContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code declarationAST}
-	 * labeled alternative in {@link ParserMain#declaration}.
+	 * Visit a parse tree produced by {@link ParserMain#returnStatement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitDeclarationAST(ParserMain.DeclarationASTContext ctx);
+	T visitReturnStatement(ParserMain.ReturnStatementContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code constDeclAST}
-	 * labeled alternative in {@link ParserMain#singleDeclaration}.
+	 * Visit a parse tree produced by {@link ParserMain#printStatement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitConstDeclAST(ParserMain.ConstDeclASTContext ctx);
+	T visitPrintStatement(ParserMain.PrintStatementContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code varDeclAST}
-	 * labeled alternative in {@link ParserMain#singleDeclaration}.
+	 * Visit a parse tree produced by {@link ParserMain#classDecl}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitVarDeclAST(ParserMain.VarDeclASTContext ctx);
+	T visitClassDecl(ParserMain.ClassDeclContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code typeDenoterAST}
-	 * labeled alternative in {@link ParserMain#typeDenoter}.
+	 * Visit a parse tree produced by {@link ParserMain#classVariableDecl}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitTypeDenoterAST(ParserMain.TypeDenoterASTContext ctx);
+	T visitClassVariableDecl(ParserMain.ClassVariableDeclContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code expressionAST}
-	 * labeled alternative in {@link ParserMain#expression}.
+	 * Visit a parse tree produced by {@link ParserMain#variableDecl}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExpressionAST(ParserMain.ExpressionASTContext ctx);
+	T visitVariableDecl(ParserMain.VariableDeclContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code numPEAST}
-	 * labeled alternative in {@link ParserMain#primaryExp}.
+	 * Visit a parse tree produced by {@link ParserMain#type}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitNumPEAST(ParserMain.NumPEASTContext ctx);
+	T visitType(ParserMain.TypeContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code idPEAST}
-	 * labeled alternative in {@link ParserMain#primaryExp}.
+	 * Visit a parse tree produced by {@link ParserMain#simpleType}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitIdPEAST(ParserMain.IdPEASTContext ctx);
+	T visitSimpleType(ParserMain.SimpleTypeContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code groupPEAST}
-	 * labeled alternative in {@link ParserMain#primaryExp}.
+	 * Visit a parse tree produced by {@link ParserMain#arrayType}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitGroupPEAST(ParserMain.GroupPEASTContext ctx);
+	T visitArrayType(ParserMain.ArrayTypeContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link ParserMain#operador}.
+	 * Visit a parse tree produced by {@link ParserMain#assignment}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitOperador(ParserMain.OperadorContext ctx);
+	T visitAssignment(ParserMain.AssignmentContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ParserMain#arrayAssignament}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArrayAssignament(ParserMain.ArrayAssignamentContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ParserMain#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExpression(ParserMain.ExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ParserMain#simpleExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSimpleExpression(ParserMain.SimpleExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ParserMain#term}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTerm(ParserMain.TermContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ParserMain#factor}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFactor(ParserMain.FactorContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ParserMain#unary}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnary(ParserMain.UnaryContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ParserMain#allocationExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAllocationExpression(ParserMain.AllocationExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ParserMain#arrayAlocationExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArrayAlocationExpression(ParserMain.ArrayAlocationExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ParserMain#subExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSubExpression(ParserMain.SubExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ParserMain#funtionCall}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuntionCall(ParserMain.FuntionCallContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ParserMain#actualParams}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitActualParams(ParserMain.ActualParamsContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ParserMain#arrayLookUp}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArrayLookUp(ParserMain.ArrayLookUpContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ParserMain#arrayLength}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArrayLength(ParserMain.ArrayLengthContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ParserMain#relationalOp}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitRelationalOp(ParserMain.RelationalOpContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ParserMain#additiveOp}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAdditiveOp(ParserMain.AdditiveOpContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ParserMain#multiplicativeOp}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMultiplicativeOp(ParserMain.MultiplicativeOpContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ParserMain#literal}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLiteral(ParserMain.LiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ParserMain#booleanLiteral}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBooleanLiteral(ParserMain.BooleanLiteralContext ctx);
 }

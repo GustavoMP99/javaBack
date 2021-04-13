@@ -15,26 +15,26 @@ parser grammar ParserMain;
                          | funtionDecl
                          | block;
  block           :       LEFTPB (statement)* RIGTHPB;
- funtionDecl     :       type identifier LEFTP (formalParams)? RIGTHP block;
+ funtionDecl     :       type ID LEFTP (formalParams)? RIGTHP block;
  formalParams    :       formalParam (COMA formalParam)*;
- formalParam     :       type identifier;
+ formalParam     :       type ID;
  whileStatement  :       WHILE LEFTP expression RIGTHP block;
  ifStatement     :       IF  LEFTP expression RIGTHP block (ELSE block)?;
  returnStatement :       RETURN  expression;
  printStatement  :       PRINT   expression;
- classDecl       :       CLASS identifier LEFTPB (classVariableDecl)* RIGTHPB;
- classVariableDecl:      simpleType identifier (EQUAL expression)?;
- variableDecl    :       type identifier (EQUAL expression)?;
- type            :       simpleType|arrayType|identifier;
+ classDecl       :       CLASS ID LEFTPB (classVariableDecl)* RIGTHPB;
+ classVariableDecl:      simpleType ID (EQUAL expression)?;
+ variableDecl    :       type ID (EQUAL expression)?;
+ type            :       simpleType|arrayType|ID;
  simpleType      :       BOOLEAN|CHAR|INT|STRING;
  arrayType       :       simpleType  LEFTPC RIGTHPC;
- assignment      :        identifier (POINT identifier)? EQUAL expression;
- arrayAssignament:       identifier LEFTPC expression RIGTHPC EQUAL expression;
+ assignment      :        ID (POINT ID)? EQUAL expression;
+ arrayAssignament:       ID LEFTPC expression RIGTHPC EQUAL expression;
  expression      :       simpleExpression (relationalOp simpleExpression)*;
  simpleExpression:       term (additiveOp term)*;
  term            :       factor(multiplicativeOp factor)*;
  factor          :       literal
-                         | identifier (POINT identifier)?
+                         | ID (POINT ID)?
                          | funtionCall
                          | arrayLookUp
                          | arrayLength
@@ -43,13 +43,13 @@ parser grammar ParserMain;
                          | allocationExpression
                          | unary;
  unary           :       (SUM|SUBTRACT|ALERT) (expression)*;
- allocationExpression:   NEW identifier LEFTP RIGTHP;
+ allocationExpression:   NEW ID LEFTP RIGTHP;
  arrayAlocationExpression: NEW simpleType LEFTPC expression RIGTHPC;
  subExpression   :       LEFTP expression RIGTHP;
- funtionCall     :       identifier LEFTP (actualParams)? RIGTHP;
+ funtionCall     :       ID LEFTP (actualParams)? RIGTHP;
  actualParams    :       expression (COMA expression);
- arrayLookUp     :       identifier LEFTPC expression RIGTHPC;
- arrayLength     :       identifier POINT LENGTH;
+ arrayLookUp     :       ID LEFTPC expression RIGTHPC;
+ arrayLength     :       ID POINT LENGTH;
  relationalOp    :       MINUS
                          | MAX
                          | IDENTICAL
@@ -62,15 +62,9 @@ parser grammar ParserMain;
  multiplicativeOp:       MULT
                          | DIV
                          | AND;
- identifier      :       (UNDERSCORE | LETTER) (UNDERSCORE |LETTER| DIGIT)*;
- literal         :       intLiteral
-                         | realLiteral
+ literal         :       INTLITERAL
+                         | REALLITERAL
                          | booleanLiteral
-                         | stringLiteral;
- intLiteral         :   DIGIT(DIGIT)*;
+                         | STRINGLITERAL;
 
- stringLiteral      :   PRINTABLE(PRINTABLE)*;
-
- booleanLiteral     :   (TRUE|FALSE);
- realLiteral         :   DIGIT(DIGIT)* POINT (DIGIT)*
-                         |POINT DIGIT (DIGIT)*;
+ booleanLiteral  :   TRUE|FALSE;
