@@ -1,4 +1,4 @@
-// Generated from C:/Users/M-ROD/OneDrive/Documents/TEC-I2021/Compi/backendJava/backendJava/src/main/java/confG4\ParserMain.g4 by ANTLR 4.9.1
+// Generated from C:/Users/M-ROD/OneDrive/Documents/TEC - I Semestre 2021/Compi/backendJava/backendJava/src/main/java/confG4\ParserMain.g4 by ANTLR 4.9.1
 package generated;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -16,421 +16,841 @@ public class ParserMainBaseListener implements ParserMainListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterProgram(ParserMain.ProgramContext ctx) { }
+	@Override public void enterProgramAST(ParserMain.ProgramASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitProgram(ParserMain.ProgramContext ctx) { }
+	@Override public void exitProgramAST(ParserMain.ProgramASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStatement(ParserMain.StatementContext ctx) { }
+	@Override public void enterCallvariableDeclAST(ParserMain.CallvariableDeclASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitStatement(ParserMain.StatementContext ctx) { }
+	@Override public void exitCallvariableDeclAST(ParserMain.CallvariableDeclASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBlock(ParserMain.BlockContext ctx) { }
+	@Override public void enterCallClassDeclAST(ParserMain.CallClassDeclASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBlock(ParserMain.BlockContext ctx) { }
+	@Override public void exitCallClassDeclAST(ParserMain.CallClassDeclASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFuntionDecl(ParserMain.FuntionDeclContext ctx) { }
+	@Override public void enterCallAssignamentAST(ParserMain.CallAssignamentASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFuntionDecl(ParserMain.FuntionDeclContext ctx) { }
+	@Override public void exitCallAssignamentAST(ParserMain.CallAssignamentASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFormalParams(ParserMain.FormalParamsContext ctx) { }
+	@Override public void enterCallArrayAssignamentAST(ParserMain.CallArrayAssignamentASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFormalParams(ParserMain.FormalParamsContext ctx) { }
+	@Override public void exitCallArrayAssignamentAST(ParserMain.CallArrayAssignamentASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFormalParam(ParserMain.FormalParamContext ctx) { }
+	@Override public void enterCallPrintStatementAST(ParserMain.CallPrintStatementASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFormalParam(ParserMain.FormalParamContext ctx) { }
+	@Override public void exitCallPrintStatementAST(ParserMain.CallPrintStatementASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterWhileStatement(ParserMain.WhileStatementContext ctx) { }
+	@Override public void enterCallIfStatementAST(ParserMain.CallIfStatementASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitWhileStatement(ParserMain.WhileStatementContext ctx) { }
+	@Override public void exitCallIfStatementAST(ParserMain.CallIfStatementASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIfStatement(ParserMain.IfStatementContext ctx) { }
+	@Override public void enterCallWhileStatementAST(ParserMain.CallWhileStatementASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIfStatement(ParserMain.IfStatementContext ctx) { }
+	@Override public void exitCallWhileStatementAST(ParserMain.CallWhileStatementASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterReturnStatement(ParserMain.ReturnStatementContext ctx) { }
+	@Override public void enterCallReturnStatementAST(ParserMain.CallReturnStatementASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitReturnStatement(ParserMain.ReturnStatementContext ctx) { }
+	@Override public void exitCallReturnStatementAST(ParserMain.CallReturnStatementASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPrintStatement(ParserMain.PrintStatementContext ctx) { }
+	@Override public void enterCallFuntionDeclAST(ParserMain.CallFuntionDeclASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPrintStatement(ParserMain.PrintStatementContext ctx) { }
+	@Override public void exitCallFuntionDeclAST(ParserMain.CallFuntionDeclASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterClassDecl(ParserMain.ClassDeclContext ctx) { }
+	@Override public void enterCallBlockAST(ParserMain.CallBlockASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitClassDecl(ParserMain.ClassDeclContext ctx) { }
+	@Override public void exitCallBlockAST(ParserMain.CallBlockASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterClassVariableDecl(ParserMain.ClassVariableDeclContext ctx) { }
+	@Override public void enterBlockAST(ParserMain.BlockASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitClassVariableDecl(ParserMain.ClassVariableDeclContext ctx) { }
+	@Override public void exitBlockAST(ParserMain.BlockASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterVariableDecl(ParserMain.VariableDeclContext ctx) { }
+	@Override public void enterFuntionDeclAST(ParserMain.FuntionDeclASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitVariableDecl(ParserMain.VariableDeclContext ctx) { }
+	@Override public void exitFuntionDeclAST(ParserMain.FuntionDeclASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterType(ParserMain.TypeContext ctx) { }
+	@Override public void enterFormalParamsAST(ParserMain.FormalParamsASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitType(ParserMain.TypeContext ctx) { }
+	@Override public void exitFormalParamsAST(ParserMain.FormalParamsASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSimpleType(ParserMain.SimpleTypeContext ctx) { }
+	@Override public void enterFormalParamAST(ParserMain.FormalParamASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSimpleType(ParserMain.SimpleTypeContext ctx) { }
+	@Override public void exitFormalParamAST(ParserMain.FormalParamASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterArrayType(ParserMain.ArrayTypeContext ctx) { }
+	@Override public void enterWhileStatementAST(ParserMain.WhileStatementASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitArrayType(ParserMain.ArrayTypeContext ctx) { }
+	@Override public void exitWhileStatementAST(ParserMain.WhileStatementASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAssignment(ParserMain.AssignmentContext ctx) { }
+	@Override public void enterIfStatementAST(ParserMain.IfStatementASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAssignment(ParserMain.AssignmentContext ctx) { }
+	@Override public void exitIfStatementAST(ParserMain.IfStatementASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterArrayAssignament(ParserMain.ArrayAssignamentContext ctx) { }
+	@Override public void enterReturnStatementAST(ParserMain.ReturnStatementASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitArrayAssignament(ParserMain.ArrayAssignamentContext ctx) { }
+	@Override public void exitReturnStatementAST(ParserMain.ReturnStatementASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExpression(ParserMain.ExpressionContext ctx) { }
+	@Override public void enterPrintStatementAST(ParserMain.PrintStatementASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExpression(ParserMain.ExpressionContext ctx) { }
+	@Override public void exitPrintStatementAST(ParserMain.PrintStatementASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSimpleExpression(ParserMain.SimpleExpressionContext ctx) { }
+	@Override public void enterClassDeclAST(ParserMain.ClassDeclASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSimpleExpression(ParserMain.SimpleExpressionContext ctx) { }
+	@Override public void exitClassDeclAST(ParserMain.ClassDeclASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTerm(ParserMain.TermContext ctx) { }
+	@Override public void enterClassVariableDeclAST(ParserMain.ClassVariableDeclASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitTerm(ParserMain.TermContext ctx) { }
+	@Override public void exitClassVariableDeclAST(ParserMain.ClassVariableDeclASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFactor(ParserMain.FactorContext ctx) { }
+	@Override public void enterVariableDeclAST(ParserMain.VariableDeclASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFactor(ParserMain.FactorContext ctx) { }
+	@Override public void exitVariableDeclAST(ParserMain.VariableDeclASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterUnary(ParserMain.UnaryContext ctx) { }
+	@Override public void enterSimpleTypeTAST(ParserMain.SimpleTypeTASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitUnary(ParserMain.UnaryContext ctx) { }
+	@Override public void exitSimpleTypeTAST(ParserMain.SimpleTypeTASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAllocationExpression(ParserMain.AllocationExpressionContext ctx) { }
+	@Override public void enterArrayTypeTAST(ParserMain.ArrayTypeTASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAllocationExpression(ParserMain.AllocationExpressionContext ctx) { }
+	@Override public void exitArrayTypeTAST(ParserMain.ArrayTypeTASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterArrayAlocationExpression(ParserMain.ArrayAlocationExpressionContext ctx) { }
+	@Override public void enterIdTAST(ParserMain.IdTASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitArrayAlocationExpression(ParserMain.ArrayAlocationExpressionContext ctx) { }
+	@Override public void exitIdTAST(ParserMain.IdTASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSubExpression(ParserMain.SubExpressionContext ctx) { }
+	@Override public void enterBoleanSTAST(ParserMain.BoleanSTASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSubExpression(ParserMain.SubExpressionContext ctx) { }
+	@Override public void exitBoleanSTAST(ParserMain.BoleanSTASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFuntionCall(ParserMain.FuntionCallContext ctx) { }
+	@Override public void enterCharSTAST(ParserMain.CharSTASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFuntionCall(ParserMain.FuntionCallContext ctx) { }
+	@Override public void exitCharSTAST(ParserMain.CharSTASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterActualParams(ParserMain.ActualParamsContext ctx) { }
+	@Override public void enterIntSTAST(ParserMain.IntSTASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitActualParams(ParserMain.ActualParamsContext ctx) { }
+	@Override public void exitIntSTAST(ParserMain.IntSTASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterArrayLookUp(ParserMain.ArrayLookUpContext ctx) { }
+	@Override public void enterStringSTAST(ParserMain.StringSTASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitArrayLookUp(ParserMain.ArrayLookUpContext ctx) { }
+	@Override public void exitStringSTAST(ParserMain.StringSTASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterArrayLength(ParserMain.ArrayLengthContext ctx) { }
+	@Override public void enterArrayTypeAST(ParserMain.ArrayTypeASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitArrayLength(ParserMain.ArrayLengthContext ctx) { }
+	@Override public void exitArrayTypeAST(ParserMain.ArrayTypeASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterRelationalOp(ParserMain.RelationalOpContext ctx) { }
+	@Override public void enterAssignmentAST(ParserMain.AssignmentASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitRelationalOp(ParserMain.RelationalOpContext ctx) { }
+	@Override public void exitAssignmentAST(ParserMain.AssignmentASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAdditiveOp(ParserMain.AdditiveOpContext ctx) { }
+	@Override public void enterArrayAssignamentAST(ParserMain.ArrayAssignamentASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAdditiveOp(ParserMain.AdditiveOpContext ctx) { }
+	@Override public void exitArrayAssignamentAST(ParserMain.ArrayAssignamentASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterMultiplicativeOp(ParserMain.MultiplicativeOpContext ctx) { }
+	@Override public void enterExpressionAST(ParserMain.ExpressionASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitMultiplicativeOp(ParserMain.MultiplicativeOpContext ctx) { }
+	@Override public void exitExpressionAST(ParserMain.ExpressionASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterLiteral(ParserMain.LiteralContext ctx) { }
+	@Override public void enterSimpleExpressionAST(ParserMain.SimpleExpressionASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitLiteral(ParserMain.LiteralContext ctx) { }
+	@Override public void exitSimpleExpressionAST(ParserMain.SimpleExpressionASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBooleanLiteral(ParserMain.BooleanLiteralContext ctx) { }
+	@Override public void enterTermAST(ParserMain.TermASTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBooleanLiteral(ParserMain.BooleanLiteralContext ctx) { }
+	@Override public void exitTermAST(ParserMain.TermASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFactorLiteralAST(ParserMain.FactorLiteralASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFactorLiteralAST(ParserMain.FactorLiteralASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFactorIDAST(ParserMain.FactorIDASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFactorIDAST(ParserMain.FactorIDASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFactorfuntionCallAST(ParserMain.FactorfuntionCallASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFactorfuntionCallAST(ParserMain.FactorfuntionCallASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFactorArrayLookUpAST(ParserMain.FactorArrayLookUpASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFactorArrayLookUpAST(ParserMain.FactorArrayLookUpASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFactorArrayLengthAST(ParserMain.FactorArrayLengthASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFactorArrayLengthAST(ParserMain.FactorArrayLengthASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFactorSubExpressionAST(ParserMain.FactorSubExpressionASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFactorSubExpressionAST(ParserMain.FactorSubExpressionASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFactorArrayAlocationAST(ParserMain.FactorArrayAlocationASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFactorArrayAlocationAST(ParserMain.FactorArrayAlocationASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFactorAllocationAST(ParserMain.FactorAllocationASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFactorAllocationAST(ParserMain.FactorAllocationASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFactorUnary(ParserMain.FactorUnaryContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFactorUnary(ParserMain.FactorUnaryContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterUnaryAST(ParserMain.UnaryASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitUnaryAST(ParserMain.UnaryASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAllocationExpressionAST(ParserMain.AllocationExpressionASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAllocationExpressionAST(ParserMain.AllocationExpressionASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterArrayAlocationExpressionAST(ParserMain.ArrayAlocationExpressionASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitArrayAlocationExpressionAST(ParserMain.ArrayAlocationExpressionASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSubExpressionAST(ParserMain.SubExpressionASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSubExpressionAST(ParserMain.SubExpressionASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFuntionCallAST(ParserMain.FuntionCallASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFuntionCallAST(ParserMain.FuntionCallASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterActualParamsAST(ParserMain.ActualParamsASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitActualParamsAST(ParserMain.ActualParamsASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterArrayLookUpAST(ParserMain.ArrayLookUpASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitArrayLookUpAST(ParserMain.ArrayLookUpASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterArrayLengthAST(ParserMain.ArrayLengthASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitArrayLengthAST(ParserMain.ArrayLengthASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterMinusOPAST(ParserMain.MinusOPASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMinusOPAST(ParserMain.MinusOPASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterMaxOPAST(ParserMain.MaxOPASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMaxOPAST(ParserMain.MaxOPASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterIdenticalOPAST(ParserMain.IdenticalOPASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIdenticalOPAST(ParserMain.IdenticalOPASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterDifOPAST(ParserMain.DifOPASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDifOPAST(ParserMain.DifOPASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterMinSequalOPAST(ParserMain.MinSequalOPASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMinSequalOPAST(ParserMain.MinSequalOPASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterMaxSequalAST(ParserMain.MaxSequalASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMaxSequalAST(ParserMain.MaxSequalASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSumOPAST(ParserMain.SumOPASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSumOPAST(ParserMain.SumOPASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSubtractOPAST(ParserMain.SubtractOPASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSubtractOPAST(ParserMain.SubtractOPASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterOrOPAST(ParserMain.OrOPASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitOrOPAST(ParserMain.OrOPASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterMultOPAST(ParserMain.MultOPASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMultOPAST(ParserMain.MultOPASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterDivOPAST(ParserMain.DivOPASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDivOPAST(ParserMain.DivOPASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAndOPAST(ParserMain.AndOPASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAndOPAST(ParserMain.AndOPASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterIntLiteralAST(ParserMain.IntLiteralASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIntLiteralAST(ParserMain.IntLiteralASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterRealLiteralAST(ParserMain.RealLiteralASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitRealLiteralAST(ParserMain.RealLiteralASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterBooleanLiteralAST(ParserMain.BooleanLiteralASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBooleanLiteralAST(ParserMain.BooleanLiteralASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterStringLiteralAST(ParserMain.StringLiteralASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStringLiteralAST(ParserMain.StringLiteralASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTrueAST(ParserMain.TrueASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTrueAST(ParserMain.TrueASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFalseAST(ParserMain.FalseASTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFalseAST(ParserMain.FalseASTContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

@@ -1,4 +1,5 @@
 package com.backendJava;
+import com.backendJava.AContextual.AContextual;
 import generated.*;
 import org.antlr.v4.runtime.*;
 
@@ -19,8 +20,6 @@ public class Controlador {
     @PostMapping
     public List<String> allCode(@RequestBody String code ){
 
-        System.out.println(code);
-
         ScannerMain inst = null;
         ParserMain parser = null;
         CharStream input=null;
@@ -30,8 +29,18 @@ public class Controlador {
 
         List<String> respuesta = new ArrayList<String>();
 
-        try {
-            //input = CharStreams.fromFileName("C:\\Users\\M-ROD\\OneDrive\\Documents\\TEC-I2021\\Compi\\backendJava\\backendJava\\test.txt");
+
+        input = CharStreams.fromString("int t;  ");
+        inst = new ScannerMain(input);
+        tokens = new CommonTokenStream(inst);
+        parser = new ParserMain(tokens);
+
+        tree = parser.program();
+        AContextual ac = new AContextual();
+        ac.visit(tree);
+
+        return null;
+        /*try {
             input = CharStreams.fromString(code);
             inst = new ScannerMain(input);
             tokens = new CommonTokenStream(inst);
@@ -86,6 +95,6 @@ public class Controlador {
             String JSON = gson.toJson(nr);
             respuesta.add(JSON);
             return respuesta;
-        }
+        }*/
     }
 }

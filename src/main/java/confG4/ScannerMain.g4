@@ -1,6 +1,6 @@
 lexer grammar ScannerMain;
 
-//Reserved
+// Reserved
 IF      :   'if';
 ELSE    :   'else';
 RETURN  :   'return';
@@ -18,7 +18,7 @@ PRINT   :   'print';
 AND     :   'and';
 CHAR    :   'char';
 
-//Symbols
+// Symbols
 EQUAL       :   '=';
 LEFTP       :   '(';
 RIGTHP      :   ')';
@@ -45,7 +45,6 @@ SUBTRACT    :   '-';
 MULT        :   '*';
 DIV         :   '/';
 
-
 WS          :   [ \r\t\n]+ -> skip;
 COMMENT     :   ('//')(LETTER|DIGIT|[ \r\t\n]|'@#$%^&*!_-+=.,><?/`"')*; //???????????
 
@@ -57,8 +56,7 @@ REALLITERAL  :   DIGIT(DIGIT)* POINT (DIGIT)*
                     | POINT DIGIT (DIGIT)*;
 ID           :       UNDERSCORE | LETTER (UNDERSCORE |LETTER| DIGIT)*;
 
-
-//Fragments
+// Fragments
  LETTER     : [a-zA-Z];
  DIGIT      : [0-9];
  PRINTABLE  : LETTER | DIGIT |' '| ALERT | EXTRA | '#' | '$' | '%' | '&'  | '\'' | LEFTP | RIGTHP | MULT | SUM | COMA | SUBTRACT | POINT | DIV | ':'
