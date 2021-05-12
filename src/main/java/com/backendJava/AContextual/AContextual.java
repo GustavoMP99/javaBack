@@ -15,7 +15,6 @@ public class AContextual extends generated.ParserMainBaseVisitor {
         for(ParserMain.StatementContext c: ctx.statement()){
             this.visit(c);
         }
-
         return null;
     }
 
@@ -23,7 +22,6 @@ public class AContextual extends generated.ParserMainBaseVisitor {
     public Object visitCallvariableDeclAST(ParserMain.CallvariableDeclASTContext ctx) {
         System.out.println("callvariableDeclAST");
         Object retorno = this.visit(ctx.variableDecl());
-        //ctx.SEMICOLON();
         return null;
     }
 
@@ -44,77 +42,116 @@ public class AContextual extends generated.ParserMainBaseVisitor {
 
     @Override
     public Object visitCallArrayAssignamentAST(ParserMain.CallArrayAssignamentASTContext ctx) {
-        return super.visitCallArrayAssignamentAST(ctx);
+        this.visit(ctx.arrayAssignament());
+        return null;
     }
 
     @Override
     public Object visitCallPrintStatementAST(ParserMain.CallPrintStatementASTContext ctx) {
-        return super.visitCallPrintStatementAST(ctx);
+        this.visit(ctx.printStatement());
+        ctx.SEMICOLON();
+        return null;
     }
 
     @Override
     public Object visitCallIfStatementAST(ParserMain.CallIfStatementASTContext ctx) {
-        return super.visitCallIfStatementAST(ctx);
+        this.visit(ctx.ifStatement());
+        return null;
     }
 
     @Override
     public Object visitCallWhileStatementAST(ParserMain.CallWhileStatementASTContext ctx) {
-        return super.visitCallWhileStatementAST(ctx);
+        this.visit(ctx.whileStatement());
+        return null;
     }
 
     @Override
     public Object visitCallReturnStatementAST(ParserMain.CallReturnStatementASTContext ctx) {
-        return super.visitCallReturnStatementAST(ctx);
+        this.visit(ctx.returnStatement());
+        ctx.SEMICOLON();
+        return null;
     }
 
     @Override
     public Object visitCallFuntionDeclAST(ParserMain.CallFuntionDeclASTContext ctx) {
-        return super.visitCallFuntionDeclAST(ctx);
+        this.visit(ctx.funtionDecl());
+        return null;
     }
 
     @Override
     public Object visitCallBlockAST(ParserMain.CallBlockASTContext ctx) {
-        return super.visitCallBlockAST(ctx);
+        this.visit(ctx.block());
+        return null;
     }
 
     @Override
     public Object visitBlockAST(ParserMain.BlockASTContext ctx) {
-        return super.visitBlockAST(ctx);
+        for(ParserMain.StatementContext c: ctx.statement()){
+            this.visit(c);
+        }
+
+        return null;
     }
 
     @Override
     public Object visitFuntionDeclAST(ParserMain.FuntionDeclASTContext ctx) {
-        return super.visitFuntionDeclAST(ctx);
+        this.visit(ctx.type());
+        if(ctx.formalParams() != null){
+            this.visit(ctx.formalParams());
+        }
+        this.visit(ctx.block());
+        return null;
     }
 
     @Override
     public Object visitFormalParamsAST(ParserMain.FormalParamsASTContext ctx) {
-        return super.visitFormalParamsAST(ctx);
+        this.visit(ctx.formalParam(0));
+        if(ctx.COMA() != null){
+            for (int i=1; i<ctx.formalParam().size();i++){
+                this.visit(ctx.formalParam(i));
+            }
+        }
+        return null;
     }
 
     @Override
     public Object visitFormalParamAST(ParserMain.FormalParamASTContext ctx) {
-        return super.visitFormalParamAST(ctx);
+        this.visit(ctx.type());
+
+        return null;
     }
 
     @Override
     public Object visitWhileStatementAST(ParserMain.WhileStatementASTContext ctx) {
-        return super.visitWhileStatementAST(ctx);
+        this.visit(ctx.expression());
+        this.visit(ctx.block());
+        return null;
     }
 
     @Override
     public Object visitIfStatementAST(ParserMain.IfStatementASTContext ctx) {
-        return super.visitIfStatementAST(ctx);
+        this.visit(ctx.expression());
+        this.visit(ctx.block(0));
+        for (int i=1; i<ctx.block().size();i++){
+            this.visit(ctx.block(i));
+        }
+        return null;
     }
 
     @Override
     public Object visitReturnStatementAST(ParserMain.ReturnStatementASTContext ctx) {
-        return super.visitReturnStatementAST(ctx);
+        ctx.RETURN();
+        System.out.println("ESTO ES UN RETURN");
+        this.visit(ctx.expression());
+        return null;
     }
 
     @Override
     public Object visitPrintStatementAST(ParserMain.PrintStatementASTContext ctx) {
-        return super.visitPrintStatementAST(ctx);
+        ctx.PRINT();
+        System.out.println("Es un print");
+        this.visit(ctx.expression());
+        return null;
     }
 
     @Override
@@ -169,12 +206,14 @@ public class AContextual extends generated.ParserMainBaseVisitor {
 
     @Override
     public Object visitArrayTypeTAST(ParserMain.ArrayTypeTASTContext ctx) {
-        return super.visitArrayTypeTAST(ctx);
+        this.visit(ctx.arrayType());
+        return null;
     }
 
     @Override
     public Object visitIdTAST(ParserMain.IdTASTContext ctx) {
-        return super.visitIdTAST(ctx);
+        ctx.ID();
+        return "Soy tipo ID";
     }
 
     @Override
@@ -200,7 +239,8 @@ public class AContextual extends generated.ParserMainBaseVisitor {
 
     @Override
     public Object visitArrayTypeAST(ParserMain.ArrayTypeASTContext ctx) {
-        return super.visitArrayTypeAST(ctx);
+        this.visit(ctx.simpleType());
+        return null;
     }
 
     @Override
@@ -217,7 +257,10 @@ public class AContextual extends generated.ParserMainBaseVisitor {
 
     @Override
     public Object visitArrayAssignamentAST(ParserMain.ArrayAssignamentASTContext ctx) {
-        return super.visitArrayAssignamentAST(ctx);
+        for (int i=1; i<ctx.expression().size();i++){
+            this.visit(ctx.expression(i));
+        }
+        return null;
     }
 
     @Override
@@ -267,183 +310,241 @@ public class AContextual extends generated.ParserMainBaseVisitor {
                 System.out.println("ERROR - Tipos de datos incompatibles en el operador..."); //poner operador.
         }
 
-        return super.visitTermAST(ctx);
+        return null;
     }
 
     @Override
     public Object visitFactorLiteralAST(ParserMain.FactorLiteralASTContext ctx) {
-
+        this.visit(ctx.literal());
 
         return null;
     }
 
     @Override
     public Object visitFactorIDAST(ParserMain.FactorIDASTContext ctx) {
-        return super.visitFactorIDAST(ctx);
+        ctx.ID();
+        if(ctx.POINT() != null){
+            System.out.println("Punto y ID");
+            ctx.ID();
+        }
+        return null;
     }
 
     @Override
     public Object visitFactorfuntionCallAST(ParserMain.FactorfuntionCallASTContext ctx) {
-        return super.visitFactorfuntionCallAST(ctx);
+        this.visit(ctx.funtionCall());
+        return null;
     }
 
     @Override
     public Object visitFactorArrayLookUpAST(ParserMain.FactorArrayLookUpASTContext ctx) {
-        return super.visitFactorArrayLookUpAST(ctx);
+        this.visit(ctx.arrayLookUp());
+        return null;
     }
 
     @Override
     public Object visitFactorArrayLengthAST(ParserMain.FactorArrayLengthASTContext ctx) {
-        return super.visitFactorArrayLengthAST(ctx);
+        this.visit(ctx.arrayLength());
+        return null;
     }
 
     @Override
     public Object visitFactorSubExpressionAST(ParserMain.FactorSubExpressionASTContext ctx) {
-        return super.visitFactorSubExpressionAST(ctx);
+        this.visit(ctx.subExpression());
+        return null;
     }
 
     @Override
     public Object visitFactorArrayAlocationAST(ParserMain.FactorArrayAlocationASTContext ctx) {
-        return super.visitFactorArrayAlocationAST(ctx);
+        this.visit(ctx.arrayAlocationExpression());
+        return null;
     }
 
     @Override
     public Object visitFactorAllocationAST(ParserMain.FactorAllocationASTContext ctx) {
-        return super.visitFactorAllocationAST(ctx);
+        this.visit(ctx.allocationExpression());
+        return null;
     }
 
     @Override
     public Object visitFactorUnary(ParserMain.FactorUnaryContext ctx) {
-        return super.visitFactorUnary(ctx);
+        this.visit(ctx.unary());
+        return null;
     }
 
     @Override
     public Object visitUnaryAST(ParserMain.UnaryASTContext ctx) {
-        return super.visitUnaryAST(ctx);
+        this.visit(ctx.expression(0));
+        for (int i=1; i<ctx.expression().size();i++){
+            this.visit(ctx.expression(i));
+
+        }
+        return null;
     }
 
     @Override
     public Object visitAllocationExpressionAST(ParserMain.AllocationExpressionASTContext ctx) {
-        return super.visitAllocationExpressionAST(ctx);
+        ctx.NEW();
+        ctx.ID();
+        ctx.LEFTP();
+        ctx.RIGTHP();
+        System.out.println("New ID()");
+        return null;
     }
 
     @Override
     public Object visitArrayAlocationExpressionAST(ParserMain.ArrayAlocationExpressionASTContext ctx) {
-        return super.visitArrayAlocationExpressionAST(ctx);
+        this.visit(ctx.simpleType());
+        this.visit(ctx.expression());
+
+        return null;
     }
 
     @Override
     public Object visitSubExpressionAST(ParserMain.SubExpressionASTContext ctx) {
-        return super.visitSubExpressionAST(ctx);
+        this.visit(ctx.expression());
+        return null;
     }
 
     @Override
     public Object visitFuntionCallAST(ParserMain.FuntionCallASTContext ctx) {
-        return super.visitFuntionCallAST(ctx);
+        ctx.ID();
+        ctx.LEFTP();
+        if(ctx.actualParams() != null){
+            this.visit(ctx.actualParams());
+        }
+        return null;
     }
 
+    /*
+    * PROBAR ESTA PARTE BIEN!!
+    */
     @Override
     public Object visitActualParamsAST(ParserMain.ActualParamsASTContext ctx) {
-        return super.visitActualParamsAST(ctx);
+        this.visit(ctx.expression(0));
+        if(ctx.COMA() != null){
+            for (int i=1; i<ctx.expression().size();i++){
+                this.visit(ctx.expression(i));
+
+            }
+        }
+        return null;
     }
 
     @Override
     public Object visitArrayLookUpAST(ParserMain.ArrayLookUpASTContext ctx) {
-        return super.visitArrayLookUpAST(ctx);
+        this.visit(ctx.expression());
+        return null;
     }
 
     @Override
     public Object visitArrayLengthAST(ParserMain.ArrayLengthASTContext ctx) {
-        return super.visitArrayLengthAST(ctx);
+        System.out.println("LEN DE LISTA");
+            ctx.ID();
+            ctx.POINT();
+            ctx.LENGTH();
+
+        return null;
     }
 
     @Override
-    public Object visitMinusOPAST(ParserMain.MinusOPASTContext ctx) {
-        return super.visitMinusOPAST(ctx);
+    public Object visitMinusOPAST(ParserMain.MinusOPASTContext ctx){
+        System.out.println("MINUS");
+        return "MINUS";
     }
 
     @Override
     public Object visitMaxOPAST(ParserMain.MaxOPASTContext ctx) {
-        return super.visitMaxOPAST(ctx);
+        System.out.println("MAX");
+        return "MAX";
     }
 
     @Override
     public Object visitIdenticalOPAST(ParserMain.IdenticalOPASTContext ctx) {
-        return super.visitIdenticalOPAST(ctx);
+        System.out.println("IDENTICAL");
+        return "IDENTICAL";
     }
 
     @Override
     public Object visitDifOPAST(ParserMain.DifOPASTContext ctx) {
-        return super.visitDifOPAST(ctx);
+        System.out.println("DIF");
+        return "DIF";
     }
 
     @Override
     public Object visitMinSequalOPAST(ParserMain.MinSequalOPASTContext ctx) {
-        return super.visitMinSequalOPAST(ctx);
+        System.out.println("MINUSEQUAL");
+        return "MINUSEQUAL";
     }
 
     @Override
     public Object visitMaxSequalAST(ParserMain.MaxSequalASTContext ctx) {
-        return super.visitMaxSequalAST(ctx);
+        System.out.println("maxSequalAST");
+        return "maxSequalAST";
     }
 
     @Override
     public Object visitSumOPAST(ParserMain.SumOPASTContext ctx) {
-        return super.visitSumOPAST(ctx);
+        return "SUMA";
     }
 
     @Override
     public Object visitSubtractOPAST(ParserMain.SubtractOPASTContext ctx) {
-        return super.visitSubtractOPAST(ctx);
+        return "RESTA";
     }
 
     @Override
     public Object visitOrOPAST(ParserMain.OrOPASTContext ctx) {
-        return super.visitOrOPAST(ctx);
+        return "OR";
     }
 
     @Override
     public Object visitMultOPAST(ParserMain.MultOPASTContext ctx) {
-        return super.visitMultOPAST(ctx);
+        System.out.println("multiplicación");
+        return "multOPAST";
     }
 
     @Override
     public Object visitDivOPAST(ParserMain.DivOPASTContext ctx) {
-        return super.visitDivOPAST(ctx);
+        System.out.println("división");
+        return "divOPAST";
     }
 
     @Override
     public Object visitAndOPAST(ParserMain.AndOPASTContext ctx) {
-        return super.visitAndOPAST(ctx);
+        System.out.println("and - otro operando");
+        return "andOPAST";
     }
 
     @Override
     public Object visitIntLiteralAST(ParserMain.IntLiteralASTContext ctx) {
-        return super.visitIntLiteralAST(ctx);
+        return "Soy un int literal";
     }
 
     @Override
     public Object visitRealLiteralAST(ParserMain.RealLiteralASTContext ctx) {
-        return super.visitRealLiteralAST(ctx);
+        return "Soy un real literal";
     }
 
     @Override
     public Object visitBooleanLiteralAST(ParserMain.BooleanLiteralASTContext ctx) {
-        return super.visitBooleanLiteralAST(ctx);
+        Object valor = this.visit(ctx.booleanLiteral());
+        System.out.println("RETORNO: " + valor);
+        return null;
     }
 
     @Override
     public Object visitStringLiteralAST(ParserMain.StringLiteralASTContext ctx) {
-        return super.visitStringLiteralAST(ctx);
+        return "Soy un string literal";
     }
 
     @Override
     public Object visitTrueAST(ParserMain.TrueASTContext ctx) {
-        return super.visitTrueAST(ctx);
+        return "Soy TRUE";
     }
 
     @Override
     public Object visitFalseAST(ParserMain.FalseASTContext ctx) {
-        return super.visitFalseAST(ctx);
+        return "Soy FALSE";
     }
 }

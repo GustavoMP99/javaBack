@@ -27,7 +27,7 @@ parser grammar ParserMain;
  variableDecl    :       type ID (EQUAL expression)?                                                #variableDeclAST;
  type            :       simpleType                                                                 #simpleTypeTAST
                          |arrayType                                                                 #arrayTypeTAST
-                         |ID                                                                        #idTAST;
+                         | ID                                                                        #idTAST;
  simpleType      :       BOOLEAN                                                                    #boleanSTAST
                          |CHAR                                                                      #charSTAST
                          |INT                                                                       #intSTAST
@@ -37,7 +37,7 @@ parser grammar ParserMain;
  arrayAssignament:       ID LEFTPC expression RIGTHPC EQUAL expression                              #arrayAssignamentAST;
  expression      :       simpleExpression (relationalOp simpleExpression)*                          #expressionAST;
  simpleExpression:       term (additiveOp term)*                                                    #simpleExpressionAST;
- term            :       factor(multiplicativeOp factor)*                                           #termAST;
+ term            :       factor (multiplicativeOp factor)*                                          #termAST;
  factor          :       literal                                                                    #factorLiteralAST
                          | ID (POINT ID)?                                                           #factorIDAST
                          | funtionCall                                                              #factorfuntionCallAST
@@ -52,7 +52,7 @@ parser grammar ParserMain;
  arrayAlocationExpression: NEW simpleType LEFTPC expression RIGTHPC                                 #arrayAlocationExpressionAST;
  subExpression   :       LEFTP expression RIGTHP                                                    #subExpressionAST;
  funtionCall     :       ID LEFTP (actualParams)? RIGTHP                                            #funtionCallAST;
- actualParams    :       expression (COMA expression)                                               #actualParamsAST;
+ actualParams    :       expression (COMA expression)*                                              #actualParamsAST;
  arrayLookUp     :       ID LEFTPC expression RIGTHPC                                               #arrayLookUpAST;
  arrayLength     :       ID POINT LENGTH                                                            #arrayLengthAST;
  relationalOp    :       MINUS                                                                      #minusOPAST

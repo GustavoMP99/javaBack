@@ -16,6 +16,14 @@ import com.google.gson.*;
 @RequestMapping({"/compilador"})
 public class Controlador {
 
+    /*@GetMapping
+    public String getTest(){
+        return "hola";
+    }*/
+
+
+
+
 
     @PostMapping
     public List<String> allCode(@RequestBody String code ){
@@ -30,7 +38,7 @@ public class Controlador {
         List<String> respuesta = new ArrayList<String>();
 
 
-        input = CharStreams.fromString("int t;  ");
+        input = CharStreams.fromString("boolean bol;  ");
         inst = new ScannerMain(input);
         tokens = new CommonTokenStream(inst);
         parser = new ParserMain(tokens);
@@ -40,6 +48,7 @@ public class Controlador {
         ac.visit(tree);
 
         return null;
+
         /*try {
             input = CharStreams.fromString(code);
             inst = new ScannerMain(input);
