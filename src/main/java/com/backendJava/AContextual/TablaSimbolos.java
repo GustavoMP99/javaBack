@@ -17,12 +17,12 @@ public class TablaSimbolos {
 
     public class Ident{
         Token tok;
-        int type;
+        String type;
         int nivel;
         //int valor;
         ParserRuleContext declCtx;
 
-        public Ident(Token t, int tp, ParserRuleContext decl){
+        public Ident(Token t,String tp, ParserRuleContext decl){
             tok = t;
             type = tp;
             nivel=nivelActual;
@@ -39,7 +39,7 @@ public class TablaSimbolos {
         }
     }
 
-    public void insertar(Token id, int tipo, ParserRuleContext decl)
+    public void insertar(Token id, String tipo, ParserRuleContext decl)
     {
         //no se puede insertar un elemento repetido en el mismo nivel
         Ident i = new Ident(id,tipo,decl);

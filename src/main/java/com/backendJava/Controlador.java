@@ -38,7 +38,7 @@ public class Controlador {
         List<String> respuesta = new ArrayList<String>();
 
 
-        input = CharStreams.fromString("boolean bol;  ");
+        input = CharStreams.fromString(code);
         inst = new ScannerMain(input);
         tokens = new CommonTokenStream(inst);
         parser = new ParserMain(tokens);

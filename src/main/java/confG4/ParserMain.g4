@@ -26,12 +26,12 @@ parser grammar ParserMain;
  classVariableDecl:      simpleType ID (EQUAL expression)?                                          #classVariableDeclAST;
  variableDecl    :       type ID (EQUAL expression)?                                                #variableDeclAST;
  type            :       simpleType                                                                 #simpleTypeTAST
-                         |arrayType                                                                 #arrayTypeTAST
-                         | ID                                                                        #idTAST;
+                         | arrayType                                                                #arrayTypeTAST
+                         | ID                                                                       #idTAST;
  simpleType      :       BOOLEAN                                                                    #boleanSTAST
-                         |CHAR                                                                      #charSTAST
-                         |INT                                                                       #intSTAST
-                         |STRING                                                                    #stringSTAST;
+                         | CHAR                                                                     #charSTAST
+                         | INT                                                                      #intSTAST
+                         | STRING                                                                   #stringSTAST;
  arrayType       :       simpleType  LEFTPC RIGTHPC                                                 #arrayTypeAST;
  assignment      :       ID (POINT ID)? EQUAL expression                                            #assignmentAST;
  arrayAssignament:       ID LEFTPC expression RIGTHPC EQUAL expression                              #arrayAssignamentAST;

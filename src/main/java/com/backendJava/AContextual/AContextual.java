@@ -15,12 +15,12 @@ public class AContextual extends generated.ParserMainBaseVisitor {
         for(ParserMain.StatementContext c: ctx.statement()){
             this.visit(c);
         }
+        tabla.imprimir();
         return null;
     }
 
     @Override
     public Object visitCallvariableDeclAST(ParserMain.CallvariableDeclASTContext ctx) {
-        System.out.println("callvariableDeclAST");
         Object retorno = this.visit(ctx.variableDecl());
         return null;
     }
@@ -157,10 +157,6 @@ public class AContextual extends generated.ParserMainBaseVisitor {
     @Override
     public Object visitClassDeclAST(ParserMain.ClassDeclASTContext ctx) {
         System.out.println("ClassDeclAST");
-        //ctx.CLASS();
-        //ctx.ID();
-        //ctx.LEFTPB();
-
         for(ParserMain.ClassVariableDeclContext c: ctx.classVariableDecl()){
             this.visit(c);
         }
@@ -170,37 +166,31 @@ public class AContextual extends generated.ParserMainBaseVisitor {
 
     @Override
     public Object visitClassVariableDeclAST(ParserMain.ClassVariableDeclASTContext ctx) {
-        this.visit(ctx.simpleType());
+        String tipo = (String) this.visit(ctx.simpleType());
+        System.out.println("EL TIPO ES "+ tipo);
         //ctx.ID();
+        tabla.insertar(ctx.ID().getSymbol(), tipo, ctx);
         if(ctx.EQUAL() != null){
             this.visit(ctx.expression());
         }
-
         return null;
     }
 
     @Override
     public Object visitVariableDeclAST(ParserMain.VariableDeclASTContext ctx) {
 
-        Object retorno = this.visit(ctx.type());
-        String id= ctx.ID().getText();
+        String tipo = (String) this.visit(ctx.type());
+        tabla.insertar(ctx.ID().getSymbol(), tipo, ctx);
 
         if(ctx.EQUAL() != null){
-            System.out.println(id + " fue declarado y asignador");
             this.visit(ctx.expression());
         }
-        else {
-            System.out.println(id + " fue declarado y NO asignado");
-        }
-
         return null;
     }
 
     @Override
     public Object visitSimpleTypeTAST(ParserMain.SimpleTypeTASTContext ctx) {
         Object retorno = this.visit(ctx.simpleType());
-
-        System.out.println("RETORNO: " + retorno);
         return retorno;
     }
 
@@ -212,34 +202,33 @@ public class AContextual extends generated.ParserMainBaseVisitor {
 
     @Override
     public Object visitIdTAST(ParserMain.IdTASTContext ctx) {
-        ctx.ID();
-        return "Soy tipo ID";
+        return ctx.ID().getText();
     }
 
     @Override
     public Object visitBoleanSTAST(ParserMain.BoleanSTASTContext ctx) {
-
-        return "Boolean";
+        return ctx.BOOLEAN().getText();
     }
 
     @Override
     public Object visitCharSTAST(ParserMain.CharSTASTContext ctx) {
-        return "Soy un Char";
+        return ctx.CHAR().getText();
     }
 
     @Override
     public Object visitIntSTAST(ParserMain.IntSTASTContext ctx) {
-        return "Soy un int";
+        return ctx.INT().getText();
     }
 
     @Override
     public Object visitStringSTAST(ParserMain.StringSTASTContext ctx) {
-        return "Soy un string";
+        return ctx.STRING().getText();
     }
 
     @Override
     public Object visitArrayTypeAST(ParserMain.ArrayTypeASTContext ctx) {
-        this.visit(ctx.simpleType());
+        String tipo=(String) this.visit(ctx.simpleType());
+        System.out.println("EL TIPO DE ARRAY ES " + tipo);
         return null;
     }
 
@@ -394,7 +383,8 @@ public class AContextual extends generated.ParserMainBaseVisitor {
 
     @Override
     public Object visitArrayAlocationExpressionAST(ParserMain.ArrayAlocationExpressionASTContext ctx) {
-        this.visit(ctx.simpleType());
+        String tipo = (String) this.visit(ctx.simpleType());
+        System.out.println("Tipo de array expresion es " + tipo);
         this.visit(ctx.expression());
 
         return null;
