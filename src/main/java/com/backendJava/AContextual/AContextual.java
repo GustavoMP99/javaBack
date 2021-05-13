@@ -15,13 +15,13 @@ public class AContextual extends generated.ParserMainBaseVisitor {
         for(ParserMain.StatementContext c: ctx.statement()){
             this.visit(c);
         }
-        tabla.imprimir();
         return null;
     }
 
     @Override
     public Object visitCallvariableDeclAST(ParserMain.CallvariableDeclASTContext ctx) {
         Object retorno = this.visit(ctx.variableDecl());
+        tabla.imprimir();
         return null;
     }
 
@@ -86,16 +86,21 @@ public class AContextual extends generated.ParserMainBaseVisitor {
 
     @Override
     public Object visitBlockAST(ParserMain.BlockASTContext ctx) {
+        tabla.openScope();
         for(ParserMain.StatementContext c: ctx.statement()){
             this.visit(c);
         }
+        tabla.imprimir();
+        tabla.closeScope();
 
         return null;
     }
 
     @Override
     public Object visitFuntionDeclAST(ParserMain.FuntionDeclASTContext ctx) {
-        this.visit(ctx.type());
+        String tipo =(String) this.visit(ctx.type());
+        tabla.insertar(ctx.ID().getSymbol(),tipo,ctx);
+
         if(ctx.formalParams() != null){
             this.visit(ctx.formalParams());
         }
@@ -117,7 +122,6 @@ public class AContextual extends generated.ParserMainBaseVisitor {
     @Override
     public Object visitFormalParamAST(ParserMain.FormalParamASTContext ctx) {
         this.visit(ctx.type());
-
         return null;
     }
 
@@ -156,7 +160,7 @@ public class AContextual extends generated.ParserMainBaseVisitor {
 
     @Override
     public Object visitClassDeclAST(ParserMain.ClassDeclASTContext ctx) {
-        System.out.println("ClassDeclAST");
+        tabla.insertar(ctx.ID().getSymbol(), "class", ctx); //Agregar la declación de la clase a la tabla.
         for(ParserMain.ClassVariableDeclContext c: ctx.classVariableDecl()){
             this.visit(c);
         }
@@ -180,6 +184,7 @@ public class AContextual extends generated.ParserMainBaseVisitor {
     public Object visitVariableDeclAST(ParserMain.VariableDeclASTContext ctx) {
 
         String tipo = (String) this.visit(ctx.type());
+
         tabla.insertar(ctx.ID().getSymbol(), tipo, ctx);
 
         if(ctx.EQUAL() != null){
@@ -246,6 +251,10 @@ public class AContextual extends generated.ParserMainBaseVisitor {
 
     @Override
     public Object visitArrayAssignamentAST(ParserMain.ArrayAssignamentASTContext ctx) {
+
+        ///agregar a la tabla
+
+
         for (int i=1; i<ctx.expression().size();i++){
             this.visit(ctx.expression(i));
         }
@@ -261,9 +270,11 @@ public class AContextual extends generated.ParserMainBaseVisitor {
 
         for (int i=1; i<ctx.simpleExpression().size();i++){
             this.visit(ctx.relationalOp(i-1));
-            exprType2 = (int) this.visit(ctx.simpleExpression(i));
+            this.visit(ctx.simpleExpression(i));
+
+            /*exprType2 = (int) this.visit(ctx.simpleExpression(i));
             if(exprType != exprType2) //acá no va a pasar porque siempre es int (0) pero para efectos del proyecto es así.
-                System.out.println("ERROR - Tipos de datos incompatibles en el operador..."); //poner operador.
+                System.out.println("ERROR - Tipos de datos incompatibles en el operador..."); //poner operador.*/
         }
         return null;
     }
@@ -277,9 +288,10 @@ public class AContextual extends generated.ParserMainBaseVisitor {
 
         for (int i=1; i<ctx.term().size();i++){
             this.visit(ctx.additiveOp(i-1));
-            exprType2 = (int) this.visit(ctx.term(i));
+            this.visit(ctx.term(i));
+            /*exprType2 = (int) this.visit(ctx.term(i));
             if(exprType != exprType2) //acá no va a pasar porque siempre es int (0) pero para efectos del proyecto es así.
-                System.out.println("ERROR - Tipos de datos incompatibles en el operador..."); //poner operador.
+                System.out.println("ERROR - Tipos de datos incompatibles en el operador..."); //poner operador.*/
         }
 
         return null;
@@ -304,9 +316,10 @@ public class AContextual extends generated.ParserMainBaseVisitor {
 
     @Override
     public Object visitFactorLiteralAST(ParserMain.FactorLiteralASTContext ctx) {
-        this.visit(ctx.literal());
+        Object retorno = this.visit(ctx.literal());
+        System.out.println(retorno);
 
-        return null;
+        return retorno;
     }
 
     @Override
@@ -406,9 +419,6 @@ public class AContextual extends generated.ParserMainBaseVisitor {
         return null;
     }
 
-    /*
-    * PROBAR ESTA PARTE BIEN!!
-    */
     @Override
     public Object visitActualParamsAST(ParserMain.ActualParamsASTContext ctx) {
         this.visit(ctx.expression(0));
@@ -520,21 +530,21 @@ public class AContextual extends generated.ParserMainBaseVisitor {
     public Object visitBooleanLiteralAST(ParserMain.BooleanLiteralASTContext ctx) {
         Object valor = this.visit(ctx.booleanLiteral());
         System.out.println("RETORNO: " + valor);
-        return null;
+        return valor;
     }
 
     @Override
     public Object visitStringLiteralAST(ParserMain.StringLiteralASTContext ctx) {
-        return "Soy un string literal";
+        return ctx.STRINGLITERAL().getText();
     }
 
     @Override
     public Object visitTrueAST(ParserMain.TrueASTContext ctx) {
-        return "Soy TRUE";
+        return ctx.TRUE().getText();
     }
 
     @Override
     public Object visitFalseAST(ParserMain.FalseASTContext ctx) {
-        return "Soy FALSE";
+        return ctx.FALSE().getText();
     }
 }

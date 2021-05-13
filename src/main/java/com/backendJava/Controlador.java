@@ -27,7 +27,7 @@ public class Controlador {
 
     @PostMapping
     public List<String> allCode(@RequestBody String code ){
-
+        System.out.println(code);
         ScannerMain inst = null;
         ParserMain parser = null;
         CharStream input=null;
@@ -44,6 +44,7 @@ public class Controlador {
         parser = new ParserMain(tokens);
 
         tree = parser.program();
+
         AContextual ac = new AContextual();
         ac.visit(tree);
 
