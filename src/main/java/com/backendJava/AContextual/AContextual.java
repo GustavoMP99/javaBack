@@ -2,6 +2,8 @@ package com.backendJava.AContextual;
 
 import generated.ParserMain;
 
+import static com.backendJava.ErrorListenerControl.errorMsgs;
+
 public class AContextual extends generated.ParserMainBaseVisitor {
     private TablaSimbolos tabla;
 
@@ -183,6 +185,39 @@ public class AContextual extends generated.ParserMainBaseVisitor {
         tabla.insertar(ctx.ID().getSymbol(), tipo, ctx);
 
         if(ctx.EQUAL() != null){
+            switch(ctx.type().getText())
+            {
+                case "char" :
+                    if (ctx.expression().getText().length()!=1){
+                        errorMsgs.add(new String("PARSER ERROR - valor de char no aceptado"));
+                    }
+                    break;
+                case "int" :
+                    if (!isNumeric(ctx.expression().getText())){
+                        errorMsgs.add(new String("PARSER ERROR - valor de int no aceptado"));
+                    }
+                    break;
+                case "string" :
+                    if (!(ctx.expression().getText().charAt(0)== "\"".charAt(0) &&  ctx.expression().getText().charAt(ctx.expression().getText().length()-1)== "\"".charAt(0))){
+                        errorMsgs.add(new String("PARSER ERROR - valor de string no aceptado"));
+                    }
+                    else if (ctx.expression().getText().contains("+")){
+                        String[] temp= ctx.expression().getText().split("\\+");
+                        for (int x=0; x< temp.length; x++){
+                            if (!( temp[x].charAt(0)== "\"".charAt(0) &&  temp[x].charAt(temp[x].length()-1)== "\"".charAt(0))){
+                                errorMsgs.add(new String("PARSER ERROR - valor de string no aceptado"));
+                            }
+                        }
+                        //ctx.expression()=  (ParserMain.ExpressionContext) final1;
+                    }
+                    break;
+                case "boolean":
+                    if (!(ctx.expression().getText()=="true" || ctx.expression().getText()=="false")){
+                        errorMsgs.add(new String("PARSER ERROR - valor de string no aceptado"));
+                    }
+                default :
+
+            }
             this.visit(ctx.expression());
         }
         return null;
@@ -536,5 +571,14 @@ public class AContextual extends generated.ParserMainBaseVisitor {
     @Override
     public Object visitFalseAST(ParserMain.FalseASTContext ctx) {
         return "Soy FALSE";
+    }
+
+    private static boolean isNumeric(String cadena){
+        try {
+            Integer.parseInt(cadena);
+            return true;
+        } catch (NumberFormatException nfe){
+            return false;
+        }
     }
 }

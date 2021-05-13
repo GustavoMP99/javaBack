@@ -39,19 +39,25 @@ public class TablaSimbolos {
         }
     }
 
-    public void insertar(Token id, String tipo, ParserRuleContext decl)
+    public boolean insertar(Token id, String tipo, ParserRuleContext decl)
     {
         //no se puede insertar un elemento repetido en el mismo nivel
         Ident i = new Ident(id,tipo,decl);
-        tabla.addFirst(i);
+        if (buscar(id.getText(), i.getNivel())==null){
+            tabla.addFirst(i);
+            return true;
+        }else{
+            return false;
+        }
     }
 
 
-    public Ident buscar(String nombre)
+
+    public Ident buscar(String nombre, int nivel)
     {
         Ident temp=null;
         for(Object id : tabla)
-            if (((Ident)id).tok.getText().equals(nombre))
+            if ( ((Ident)id).tok.getText().equals(nombre) && ((Ident)id).getNivel()==(nivel) )
                 return ((Ident)id);
         return temp;
     }

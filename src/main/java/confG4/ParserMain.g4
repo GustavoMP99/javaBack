@@ -17,7 +17,7 @@ parser grammar ParserMain;
  block           :       LEFTPB (statement)* RIGTHPB                                                #blockAST;
  funtionDecl     :       type ID LEFTP (formalParams)? RIGTHP block                                 #funtionDeclAST;
  formalParams    :       formalParam (COMA formalParam)*                                            #formalParamsAST;
- formalParam     :       type ID SEMICOLON                                                          #formalParamAST;
+ formalParam     :       type ID SEMICOLON                                                     #formalParamAST;
  whileStatement  :       WHILE LEFTP expression RIGTHP block                                        #whileStatementAST;
  ifStatement     :       IF  LEFTP expression RIGTHP block (ELSE block)?                            #ifStatementAST;
  returnStatement :       RETURN  expression                                                         #returnStatementAST;
