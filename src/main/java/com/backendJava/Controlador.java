@@ -16,15 +16,6 @@ import com.google.gson.*;
 @RequestMapping({"/compilador"})
 public class Controlador {
 
-    /*@GetMapping
-    public String getTest(){
-        return "hola";
-    }*/
-
-
-
-
-
     @PostMapping
     public List<String> allCode(@RequestBody String code ){
         System.out.println(code);
