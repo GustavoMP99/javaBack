@@ -101,6 +101,22 @@ public class AContextual extends generated.ParserMainBaseVisitor {
         if(ctx.formalParams() != null){
             this.visit(ctx.formalParams());
         }
+        if(ctx.block()!=null){
+        if (!ctx.block().getText().contains("return ")){
+            errorMsgs.add(new String("PARSER ERROR - Función sin retorno"));
+        }else{
+            String[] getBlock =ctx.block().getText().split("return ");
+            String nameR = getBlock[1].split(" ")[0];
+            if(tabla.buscar(nameR)!=null){
+                if (tabla.buscar(nameR).getType()!= ctx.type().getText()){
+                    errorMsgs.add(new String("PARSER ERROR - Función con retorno no valido"));
+                }
+            }
+            else{
+                errorMsgs.add(new String("PARSER ERROR - Función con variable sin asignar"));
+            }
+        }
+        }
         this.visit(ctx.block());
         return null;
     }
@@ -213,7 +229,7 @@ public class AContextual extends generated.ParserMainBaseVisitor {
                     break;
                 case "boolean":
                     if (!(ctx.expression().getText()=="true" || ctx.expression().getText()=="false")){
-                        errorMsgs.add(new String("PARSER ERROR - valor de string no aceptado"));
+                        errorMsgs.add(new String("PARSER ERROR - valor de boolean no aceptado"));
                     }
                 default :
 
@@ -275,6 +291,44 @@ public class AContextual extends generated.ParserMainBaseVisitor {
             ctx.ID();
         }
         ctx.EQUAL();
+
+        if(tabla.buscar(ctx.ID().toString())!= null){
+            TablaSimbolos.Ident tempI = tabla.buscar(ctx.ID().toString());
+            switch(tempI.getType())
+            {
+                case "char" :
+                    if (ctx.expression().getText().length()!=1){
+                        errorMsgs.add(new String("PARSER ERROR - valor de char no aceptado"));
+                    }
+                    break;
+                case "int" :
+                    if (!isNumeric(ctx.expression().getText())){
+                        errorMsgs.add(new String("PARSER ERROR - valor de int no aceptado"));
+                    }
+                    break;
+                case "string" :
+                    if (!(ctx.expression().getText().charAt(0)== "\"".charAt(0) &&  ctx.expression().getText().charAt(ctx.expression().getText().length()-1) == "\"".charAt(0))){
+                        errorMsgs.add(new String("PARSER ERROR - valor de string no aceptado"));
+                    }
+                    else if (ctx.expression().getText().contains("+")){
+                        String[] temp= ctx.expression().getText().split("\\+");
+                        for (int x=0; x< temp.length; x++){
+                            if (!( temp[x].charAt(0)== "\"".charAt(0) &&  temp[x].charAt(temp[x].length()-1)== "\"".charAt(0))){
+                                errorMsgs.add(new String("PARSER ERROR - valor de string no aceptado"));
+                            }
+                        }
+                        //ctx.expression()=  (ParserMain.ExpressionContext) final1;
+                    }
+                    break;
+                case "boolean":
+                    if (!(ctx.expression().getText()=="true" || ctx.expression().getText()=="false")){
+                        errorMsgs.add(new String("PARSER ERROR - valor de boolean no aceptado"));
+                    }
+                default :
+
+            }
+
+        }
         this.visit(ctx.expression());
         return null;
     }
@@ -575,7 +629,11 @@ public class AContextual extends generated.ParserMainBaseVisitor {
 
     private static boolean isNumeric(String cadena){
         try {
-            Integer.parseInt(cadena);
+            String[] tempC= cadena.split("\\+|\\*|\\/|\\-");
+            for (String temp:tempC) {
+                Integer.parseInt(temp);
+            }
+
             return true;
         } catch (NumberFormatException nfe){
             return false;

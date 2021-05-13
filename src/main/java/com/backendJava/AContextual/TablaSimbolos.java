@@ -37,6 +37,9 @@ public class TablaSimbolos {
         public int getNivel() {
             return nivel;
         }
+        public String getType(){
+            return  type;
+        }
     }
 
     public boolean insertar(Token id, String tipo, ParserRuleContext decl)
@@ -50,6 +53,16 @@ public class TablaSimbolos {
             return false;
         }
     }
+
+    public Ident buscar(String nombre)
+    {
+        Ident temp=null;
+        for(Object id : tabla)
+            if ( ((Ident)id).tok.getText().equals(nombre))
+                return ((Ident)id);
+        return temp;
+    }
+
 
 
 
