@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class ErrorListenerControl extends BaseErrorListener {
 
 
-    public ArrayList<String> errorMsgs = new ArrayList<String>();
+    public static ArrayList<String> errorMsgs = new ArrayList<String>();
 
     public ErrorListenerControl( )
     {
