@@ -63,7 +63,12 @@ public class TablaSimbolos {
         return temp;
     }
 
-
+    public String getType(String name){
+        for(Object id : tabla)
+            if ( ((Ident)id).tok.getText().equals(name))
+                return ((Ident)id).type;
+        return "";
+    }
 
 
     public Ident buscar(String nombre, int nivel)

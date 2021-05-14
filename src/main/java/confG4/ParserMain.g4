@@ -72,5 +72,5 @@ parser grammar ParserMain;
                          | booleanLiteral                                                           #booleanLiteralAST
                          | STRINGLITERAL                                                            #stringLiteralAST;
 
- booleanLiteral  :   TRUE                                                                           #trueAST
-                     |FALSE                                                                         #falseAST;
+ booleanLiteral  :     TRUE                                                                          #trueAST
+                     | FALSE                                                                         #falseAST;

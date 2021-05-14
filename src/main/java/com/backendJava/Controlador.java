@@ -29,23 +29,20 @@ public class Controlador {
         List<String> respuesta = new ArrayList<String>();
 
 
-        input = CharStreams.fromString(code);
-        inst = new ScannerMain(input);
-        tokens = new CommonTokenStream(inst);
-        parser = new ParserMain(tokens);
-
-        tree = parser.program();
-
-        AContextual ac = new AContextual();
-        ac.visit(tree);
-
-        return null;
-
-        /*try {
+        try {
             input = CharStreams.fromString(code);
             inst = new ScannerMain(input);
             tokens = new CommonTokenStream(inst);
             parser = new ParserMain(tokens);
+            try {
+                tree = parser.program();
+            }catch(RecognitionException e){
+                System.out.println("Error al crear el árbol!!!");
+                e.printStackTrace();
+            }
+
+            AContextual ac = new AContextual();
+            ac.visit(tree);
 
             errorListener = new ErrorListenerControl();
 
@@ -55,13 +52,6 @@ public class Controlador {
             parser.removeErrorListeners();
             parser.addErrorListener ( errorListener );
 
-            try {
-                tree = parser.program();
-            }
-            catch(RecognitionException e){
-                System.out.println("Error!!!");
-                e.printStackTrace();
-            }
 
             if (errorListener.hasErrors() == false) {
                 System.out.println("Compilación Exitosa!!\n");
@@ -73,6 +63,7 @@ public class Controlador {
                     String JSON = gson.toJson(nr);
                     respuesta.add(JSON);
                 }
+                System.out.println("respuesta " + respuesta);
                 return respuesta;
             }
             else {
@@ -96,6 +87,6 @@ public class Controlador {
             String JSON = gson.toJson(nr);
             respuesta.add(JSON);
             return respuesta;
-        }*/
+        }
     }
 }

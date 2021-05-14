@@ -1,6 +1,7 @@
 package com.backendJava.AContextual;
 
 import generated.ParserMain;
+import org.antlr.v4.runtime.CommonToken;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 import static com.backendJava.ErrorListenerControl.errorMsgs;
@@ -10,6 +11,14 @@ public class AContextual extends generated.ParserMainBaseVisitor {
 
     public AContextual() {
         this.tabla = new TablaSimbolos();
+        tabla.insertar(new CommonToken(ParserMain.ID,"chr"),"string", null);
+        tabla.insertar(new CommonToken(ParserMain.ID,"ord"),"char", null);
+        tabla.insertar(new CommonToken(ParserMain.ID,"len"),"string", null);
+        tabla.insertar(new CommonToken(ParserMain.ID,"len"),"string[]", null);
+        tabla.insertar(new CommonToken(ParserMain.ID,"len"),"int[]", null);
+        tabla.insertar(new CommonToken(ParserMain.ID,"len"),"char[]", null);
+        tabla.insertar(new CommonToken(ParserMain.ID,"len"),"boolean[]", null);
+
     }
 
 
@@ -24,7 +33,6 @@ public class AContextual extends generated.ParserMainBaseVisitor {
     @Override
     public Object visitCallvariableDeclAST(ParserMain.CallvariableDeclASTContext ctx) {
         Object retorno = this.visit(ctx.variableDecl());
-        tabla.imprimir();
         return null;
     }
 
@@ -157,8 +165,11 @@ public class AContextual extends generated.ParserMainBaseVisitor {
     @Override
     public Object visitIfStatementAST(ParserMain.IfStatementASTContext ctx) {
         String value = (String) this.visit(ctx.expression());
-        if(tabla.buscar(value) == null)
+
+        if(value == null){
+            System.out.println("PARSER ERROR - identificador " + value +" no declarado");
             errorMsgs.add(new String("PARSER ERROR - identificador " + value +" no declarado"));
+        }
         else{
             this.visit(ctx.block(0));
             for (int i=1; i<ctx.block().size();i++){
@@ -211,8 +222,8 @@ public class AContextual extends generated.ParserMainBaseVisitor {
     public Object visitVariableDeclAST(ParserMain.VariableDeclASTContext ctx) {
         String tipo = (String) this.visit(ctx.type());
 
-        System.out.println("\ttipo: " + tipo);
         if(!tabla.insertar(ctx.ID().getSymbol(), tipo, ctx)){
+            System.out.println("PARSER ERROR - ya existe el identificador " + ctx.ID() + "en el mismo nivel");
             errorMsgs.add(new String("PARSER ERROR - ya existe el identificador " + ctx.ID() + "en el mismo nivel"));
         }
 
@@ -240,7 +251,6 @@ public class AContextual extends generated.ParserMainBaseVisitor {
                                 errorMsgs.add(new String("PARSER ERROR - valor de string no aceptado"));
                             }
                         }
-                        //ctx.expression()=  (ParserMain.ExpressionContext) final1;
                     }
                     break;
                 case "boolean":
@@ -248,7 +258,6 @@ public class AContextual extends generated.ParserMainBaseVisitor {
                         errorMsgs.add(new String("PARSER ERROR - valor de boolean no aceptado"));
                     }
                 default :
-
             }
             this.visit(ctx.expression());
         }
@@ -361,41 +370,69 @@ public class AContextual extends generated.ParserMainBaseVisitor {
                 this.visit(ctx.expression(i));
             }
         }
-
         return null;
     }
 
     @Override
     public Object visitExpressionAST(ParserMain.ExpressionASTContext ctx) {
-        int exprType=1;
-        int exprType2=-1;
+        String exprType="";
+        String exprType2="";
+        String op="";
 
-        String value = (String) this.visit(ctx.simpleExpression(0));
+        exprType = (String) this.visit(ctx.simpleExpression(0));
 
         for (int i=1; i<ctx.simpleExpression().size();i++){
-            this.visit(ctx.relationalOp(i-1));
-            this.visit(ctx.simpleExpression(i));
 
-            /*exprType2 = (int) this.visit(ctx.simpleExpression(i));
-            if(exprType != exprType2) //acá no va a pasar porque siempre es int (0) pero para efectos del proyecto es así.
-                System.out.println("ERROR - Tipos de datos incompatibles en el operador..."); //poner operador.*/
+            op = (String) this.visit(ctx.relationalOp(i-1));
+            exprType2 = (String) this.visit(ctx.simpleExpression(i));
+
+            switch(op)
+            {
+                case ">" :
+                    /* Deben ser int. */
+                    if ((!exprType.equals("int")) || (!exprType2.equals("int"))){
+                        errorMsgs.add(new String("PARSER ERROR - el operador " + op + " solo es válido para números"));
+                    }
+                    break;
+                case "<":
+                    /* Deben ser int. */
+                    if ((!exprType.equals("int")) || (!exprType2.equals("int"))){
+                        errorMsgs.add(new String("PARSER ERROR - el operador " + op + " solo es válido para números"));
+                    }
+                case "<=":
+                    /* Deben ser int. */
+                    if ((!exprType.equals("int")) || (!exprType2.equals("int"))){
+                        errorMsgs.add(new String("PARSER ERROR - el operador " + op + " solo es válido para números"));
+                    }
+                case ">=":
+                    if ((!exprType.equals("int")) || (!exprType2.equals("int"))){
+                        errorMsgs.add(new String("PARSER ERROR - el operador " + op + " solo es válido para números"));
+                    }
+                    /* Deben ser el mismo tipo. */
+                case "==":
+                    if (!exprType.equals(exprType2)){
+                        errorMsgs.add(new String("PARSER ERROR - los valores deben ser iguales para " + op));
+                    }
+                case "!=":
+                    /* Deben ser el mismo tipo. */
+                    if (!exprType.equals(exprType2)){
+                        errorMsgs.add(new String("PARSER ERROR - los valores deben ser iguales para " + op));
+                    }
+                default :
+            }
+
         }
-        return value;
+        return exprType;
     }
 
     @Override
     public Object visitSimpleExpressionAST(ParserMain.SimpleExpressionASTContext ctx) {
-        int exprType=1;
-        int exprType2=-1;
 
         String value =(String) this.visit(ctx.term(0));
 
         for (int i=1; i<ctx.term().size();i++){
             this.visit(ctx.additiveOp(i-1));
             this.visit(ctx.term(i));
-            /*exprType2 = (int) this.visit(ctx.term(i));
-            if(exprType != exprType2) //acá no va a pasar porque siempre es int (0) pero para efectos del proyecto es así.
-                System.out.println("ERROR - Tipos de datos incompatibles en el operador..."); //poner operador.*/
         }
 
         return value;
@@ -426,11 +463,11 @@ public class AContextual extends generated.ParserMainBaseVisitor {
 
     @Override
     public Object visitFactorIDAST(ParserMain.FactorIDASTContext ctx) {
-        /***if(tabla.buscar(ctx.ID(0).getText()) == null){
-            errorMsgs.add(new String("PARSER ERROR - identificador '" + ctx.ID(0) +"' no declarado"));
+        if(tabla.buscar(ctx.ID(0).getText()) == null){
             return null;
-        }*/
-        return ctx.ID(0).getText();
+        }
+        String type = tabla.getType(ctx.ID(0).getText());
+        return type;
     }
 
     @Override
@@ -540,48 +577,41 @@ public class AContextual extends generated.ParserMainBaseVisitor {
 
     @Override
     public Object visitArrayLengthAST(ParserMain.ArrayLengthASTContext ctx) {
-        System.out.println("LEN DE LISTA");
-            ctx.ID();
-            ctx.POINT();
-            ctx.LENGTH();
-
+        if(tabla.buscar(ctx.ID().getText()) == null){
+            System.out.println("PARSER ERROR - identificador '" + ctx.ID() +"' no declarado");
+            errorMsgs.add(new String("PARSER ERROR - identificador '" + ctx.ID() +"' no declarado"));
+        }
         return null;
     }
 
     @Override
     public Object visitMinusOPAST(ParserMain.MinusOPASTContext ctx){
-        System.out.println("MINUS");
-        return "MINUS";
+        return ctx.MINUS().getText();
     }
 
     @Override
     public Object visitMaxOPAST(ParserMain.MaxOPASTContext ctx) {
-        System.out.println("MAX");
-        return "MAX";
+        return ctx.MAX().getText();
     }
 
     @Override
     public Object visitIdenticalOPAST(ParserMain.IdenticalOPASTContext ctx) {
-        System.out.println("IDENTICAL");
-        return "IDENTICAL";
+        return ctx.IDENTICAL().getText();
     }
 
     @Override
     public Object visitDifOPAST(ParserMain.DifOPASTContext ctx) {
-        System.out.println("DIF");
-        return "DIF";
+        return ctx.DIF().getText();
     }
 
     @Override
     public Object visitMinSequalOPAST(ParserMain.MinSequalOPASTContext ctx) {
-        System.out.println("MINUSEQUAL");
-        return "MINUSEQUAL";
+        return ctx.MINUSEQUAL().getText();
     }
 
     @Override
     public Object visitMaxSequalAST(ParserMain.MaxSequalASTContext ctx) {
-        System.out.println("maxSequalAST");
-        return "maxSequalAST";
+        return ctx.MAXEQUAL().getText();
     }
 
     @Override
