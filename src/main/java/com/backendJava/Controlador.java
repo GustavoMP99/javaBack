@@ -14,7 +14,7 @@ import com.google.gson.*;
 
 import static com.backendJava.ErrorListenerControl.errorMsgs;
 
-@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping({"/compilador"})
 public class Controlador {
