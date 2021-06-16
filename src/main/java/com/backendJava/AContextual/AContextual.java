@@ -18,7 +18,6 @@ public class AContextual extends generated.ParserMainBaseVisitor {
         tabla.insertar(new CommonToken(ParserMain.ID,"len"),"int[]", null);
         tabla.insertar(new CommonToken(ParserMain.ID,"len"),"char[]", null);
         tabla.insertar(new CommonToken(ParserMain.ID,"len"),"boolean[]", null);
-
     }
 
 
@@ -116,20 +115,24 @@ public class AContextual extends generated.ParserMainBaseVisitor {
             this.visit(ctx.formalParams());
         }
         if(ctx.block()!=null){
-        if (!ctx.block().getText().contains("return ")){
-            errorMsgs.add(new String("PARSER ERROR - Función sin retorno"));
-        }else{
-            String[] getBlock =ctx.block().getText().split("return ");
-            String nameR = getBlock[1].split(" ")[0];
-            if(tabla.buscar(nameR)!=null){
-                if (tabla.buscar(nameR).getType()!= ctx.type().getText()){
-                    errorMsgs.add(new String("PARSER ERROR - Función con retorno no valido"));
+            if (!ctx.block().getText().contains("return")){
+                errorMsgs.add(new String("PARSER ERROR - Función sin retorno"));
+                System.out.println("PARSER ERROR - Función sin retorno");
+            }else{
+                String[] getBlock =ctx.block().getText().split("return");
+
+                String nameR = getBlock[1].split(" ")[0];
+                if(tabla.buscar(nameR)!=null){
+                    if (tabla.buscar(nameR).getType()!= ctx.type().getText()){
+                        errorMsgs.add(new String("PARSER ERROR - Función con retorno no valido"));
+                        System.out.println("PARSER ERROR - Función con retorno no valido");
+                    }
+                }
+                else{
+                    errorMsgs.add(new String("PARSER ERROR - Función con variable sin asignar"));
+                    System.out.println("PARSER ERROR - Función con variable sin asignar");
                 }
             }
-            else{
-                errorMsgs.add(new String("PARSER ERROR - Función con variable sin asignar"));
-            }
-        }
         }
         this.visit(ctx.block());
         return null;
@@ -148,16 +151,20 @@ public class AContextual extends generated.ParserMainBaseVisitor {
 
     @Override
     public Object visitFormalParamAST(ParserMain.FormalParamASTContext ctx) {
-        this.visit(ctx.type());
+
+        String t = (String) this.visit(ctx.type());
+        tabla.insertar(ctx.ID().getSymbol(), t, ctx);
         return null;
     }
 
     @Override
     public Object visitWhileStatementAST(ParserMain.WhileStatementASTContext ctx) {
         String value = (String) this.visit(ctx.expression());
-        if(tabla.buscar(value) == null)
-            errorMsgs.add(new String("PARSER ERROR - identificador " + value +" no declarado"));
 
+        /*if(tabla.buscar(value) == null) {
+            errorMsgs.add(new String("PARSER ERROR - identificador " + value + " no declarado"));
+            System.out.println("PARSER ERROR - identificador " + value + " no declarado ..");
+        }*/
         this.visit(ctx.block());
         return null;
     }
@@ -167,7 +174,7 @@ public class AContextual extends generated.ParserMainBaseVisitor {
         String value = (String) this.visit(ctx.expression());
 
         if(value == null){
-            System.out.println("PARSER ERROR - identificador " + value +" no declarado");
+            System.out.println("PARSER ERROR - identificador " + value +" no declarado 7");
             errorMsgs.add(new String("PARSER ERROR - identificador " + value +" no declarado"));
         }
         else{
@@ -183,8 +190,6 @@ public class AContextual extends generated.ParserMainBaseVisitor {
     public Object visitReturnStatementAST(ParserMain.ReturnStatementASTContext ctx) {
 
         String value = (String) this.visit(ctx.expression());
-        if(tabla.buscar(value)==null)
-            errorMsgs.add(new String("PARSER ERROR - identificador '" + value + "' no declarado"));
 
         return null;
     }
@@ -202,14 +207,17 @@ public class AContextual extends generated.ParserMainBaseVisitor {
         for(ParserMain.ClassVariableDeclContext c: ctx.classVariableDecl()){
             this.visit(c);
         }
+        tabla.imprimir();
+        tabla.closeScope();
         //ctx.RIGTHPB();
         return null;
     }
 
     @Override
     public Object visitClassVariableDeclAST(ParserMain.ClassVariableDeclASTContext ctx) {
+        tabla.openScope();
         String tipo = (String) this.visit(ctx.simpleType());
-        System.out.println("EL TIPO ES "+ tipo);
+
         //ctx.ID();
         tabla.insertar(ctx.ID().getSymbol(), tipo, ctx);
         if(ctx.EQUAL() != null){
@@ -233,22 +241,26 @@ public class AContextual extends generated.ParserMainBaseVisitor {
                 case "char" :
                     if (ctx.expression().getText().length()!=1){
                         errorMsgs.add(new String("PARSER ERROR - valor de char no aceptado"));
+                        System.out.println("PARSER ERROR - valor de char no aceptado");
                     }
                     break;
                 case "int" :
                     if (!isNumeric(ctx.expression().getText())){
                         errorMsgs.add(new String("PARSER ERROR - valor de int no aceptado"));
+                        System.out.println("PARSER ERROR - valor de int no aceptado");
                     }
                     break;
                 case "string" :
                     if (!(ctx.expression().getText().charAt(0)== "\"".charAt(0) &&  ctx.expression().getText().charAt(ctx.expression().getText().length()-1)== "\"".charAt(0))){
                         errorMsgs.add(new String("PARSER ERROR - valor de string no aceptado"));
+                        System.out.println("PARSER ERROR - valor de string no aceptado");
                     }
                     else if (ctx.expression().getText().contains("+")){
                         String[] temp= ctx.expression().getText().split("\\+");
                         for (int x=0; x< temp.length; x++){
                             if (!( temp[x].charAt(0)== "\"".charAt(0) &&  temp[x].charAt(temp[x].length()-1)== "\"".charAt(0))){
                                 errorMsgs.add(new String("PARSER ERROR - valor de string no aceptado"));
+                                System.out.println("PARSER ERROR - valor de string no aceptado");
                             }
                         }
                     }
@@ -256,6 +268,7 @@ public class AContextual extends generated.ParserMainBaseVisitor {
                 case "boolean":
                     if (!(ctx.expression().getText()=="true" || ctx.expression().getText()=="false")){
                         errorMsgs.add(new String("PARSER ERROR - valor de boolean no aceptado"));
+                        System.out.println("PARSER ERROR - valor de boolean no aceptado");
                     }
                 default :
             }
@@ -312,31 +325,34 @@ public class AContextual extends generated.ParserMainBaseVisitor {
         if(ctx.POINT() != null){
             ctx.ID();
         }
-        ctx.EQUAL();
+        if(tabla.buscar(ctx.ID(0).getText()) != null){
+            TablaSimbolos.Ident tempI = tabla.buscar(ctx.ID(0).getText());
 
-        if(tabla.buscar(ctx.ID().toString()) != null){
-            TablaSimbolos.Ident tempI = tabla.buscar(ctx.ID().toString());
             switch(tempI.getType())
             {
                 case "char" :
                     if (ctx.expression().getText().length()!=1){
                         errorMsgs.add(new String("PARSER ERROR - valor de char no aceptado"));
+                        System.out.println("PARSER ERROR - valor de char no aceptado 1");
                     }
                     break;
                 case "int" :
                     if (!isNumeric(ctx.expression().getText())){
                         errorMsgs.add(new String("PARSER ERROR - valor de int no aceptado"));
+                        System.out.println("PARSER ERROR - valor de int no aceptado 2");
                     }
                     break;
                 case "string" :
                     if (!(ctx.expression().getText().charAt(0)== "\"".charAt(0) &&  ctx.expression().getText().charAt(ctx.expression().getText().length()-1) == "\"".charAt(0))){
                         errorMsgs.add(new String("PARSER ERROR - valor de string no aceptado"));
+                        System.out.println("PARSER ERROR - valor de string no aceptado");
                     }
                     else if (ctx.expression().getText().contains("+")){
                         String[] temp= ctx.expression().getText().split("\\+");
                         for (int x=0; x< temp.length; x++){
                             if (!( temp[x].charAt(0)== "\"".charAt(0) &&  temp[x].charAt(temp[x].length()-1)== "\"".charAt(0))){
                                 errorMsgs.add(new String("PARSER ERROR - valor de string no aceptado"));
+                                System.out.println("PARSER ERROR - valor de string no aceptado");
                             }
                         }
                         //ctx.expression()=  (ParserMain.ExpressionContext) final1;
@@ -345,6 +361,7 @@ public class AContextual extends generated.ParserMainBaseVisitor {
                 case "boolean":
                     if (!(ctx.expression().getText()=="true" || ctx.expression().getText()=="false")){
                         errorMsgs.add(new String("PARSER ERROR - valor de boolean no aceptado"));
+                        System.out.println("PARSER ERROR - valor de boolean no aceptado");
                     }
                 default :
 
@@ -352,7 +369,7 @@ public class AContextual extends generated.ParserMainBaseVisitor {
 
         }
         else{
-            System.out.println("PARSER ERROR - identificador '" + ctx.ID() +"' no declarado");
+            System.out.println("PARSER ERROR - identificador '" + ctx.ID() +"' no declarado 1");
             errorMsgs.add(new String("PARSER ERROR - identificador " + ctx.ID() +" no declarado"));
         }
         this.visit(ctx.expression());
@@ -362,7 +379,7 @@ public class AContextual extends generated.ParserMainBaseVisitor {
     @Override
     public Object visitArrayAssignamentAST(ParserMain.ArrayAssignamentASTContext ctx) {
         if(tabla.buscar(ctx.ID().toString()) == null){
-            System.out.println("PARSER ERROR - identificador '" + ctx.ID() +"' no declarado");
+            System.out.println("PARSER ERROR - identificador '" + ctx.ID() +"' no declarado 2");
             errorMsgs.add(new String("PARSER ERROR - identificador '" + ctx.ID() +"' no declarado"));
         }
         else{
@@ -380,55 +397,60 @@ public class AContextual extends generated.ParserMainBaseVisitor {
         String op="";
 
         exprType = (String) this.visit(ctx.simpleExpression(0));
+        if(exprType != null){
+            for (int i=1; i<ctx.simpleExpression().size();i++){
+                op = (String) this.visit(ctx.relationalOp(i-1));
+                exprType2 = (String) this.visit(ctx.simpleExpression(i));
 
-        for (int i=1; i<ctx.simpleExpression().size();i++){
+                switch(op)
+                {
+                    case ">" :
+                        /* Deben ser int. */
+                        if ((!exprType.equals("int")) || (!exprType2.equals("int"))){
+                            errorMsgs.add(new String("PARSER ERROR - el operador " + op + " solo es válido para números"));
+                            System.out.println("PARSER ERROR - el operador " + op + " solo es válido para números");
+                        }
+                        break;
+                    case "<":
+                        /* Deben ser int. */
+                        if ((!exprType.equals("int")) || (!exprType2.equals("int"))){
+                            errorMsgs.add(new String("PARSER ERROR - el operador " + op + " solo es válido para números"));
 
-            op = (String) this.visit(ctx.relationalOp(i-1));
-            exprType2 = (String) this.visit(ctx.simpleExpression(i));
+                        }
+                    case "<=":
+                        /* Deben ser int. */
+                        if ((!exprType.equals("int")) || (!exprType2.equals("int"))){
+                            errorMsgs.add(new String("PARSER ERROR - el operador " + op + " solo es válido para números"));
+                        }
+                    case ">=":
+                        if ((!exprType.equals("int")) || (!exprType2.equals("int"))){
+                            errorMsgs.add(new String("PARSER ERROR - el operador " + op + " solo es válido para números"));
+                        }
+                        /* Deben ser el mismo tipo. */
+                    case "==":
+                        if (!exprType.equals(exprType2)){
+                            errorMsgs.add(new String("PARSER ERROR - los valores deben ser iguales para " + op));
+                        }
+                    case "!=":
+                        /* Deben ser el mismo tipo. */
+                        if (!exprType.equals(exprType2)){
+                            errorMsgs.add(new String("PARSER ERROR - los valores deben ser iguales para " + op));
+                            System.out.println("PARSER ERROR - los valores deben ser iguales para " + op);
+                        }
+                    default :
+                }
 
-            switch(op)
-            {
-                case ">" :
-                    /* Deben ser int. */
-                    if ((!exprType.equals("int")) || (!exprType2.equals("int"))){
-                        errorMsgs.add(new String("PARSER ERROR - el operador " + op + " solo es válido para números"));
-                    }
-                    break;
-                case "<":
-                    /* Deben ser int. */
-                    if ((!exprType.equals("int")) || (!exprType2.equals("int"))){
-                        errorMsgs.add(new String("PARSER ERROR - el operador " + op + " solo es válido para números"));
-                    }
-                case "<=":
-                    /* Deben ser int. */
-                    if ((!exprType.equals("int")) || (!exprType2.equals("int"))){
-                        errorMsgs.add(new String("PARSER ERROR - el operador " + op + " solo es válido para números"));
-                    }
-                case ">=":
-                    if ((!exprType.equals("int")) || (!exprType2.equals("int"))){
-                        errorMsgs.add(new String("PARSER ERROR - el operador " + op + " solo es válido para números"));
-                    }
-                    /* Deben ser el mismo tipo. */
-                case "==":
-                    if (!exprType.equals(exprType2)){
-                        errorMsgs.add(new String("PARSER ERROR - los valores deben ser iguales para " + op));
-                    }
-                case "!=":
-                    /* Deben ser el mismo tipo. */
-                    if (!exprType.equals(exprType2)){
-                        errorMsgs.add(new String("PARSER ERROR - los valores deben ser iguales para " + op));
-                    }
-                default :
             }
 
         }
+
         return exprType;
     }
 
     @Override
     public Object visitSimpleExpressionAST(ParserMain.SimpleExpressionASTContext ctx) {
 
-        String value =(String) this.visit(ctx.term(0));
+        String value = (String) this.visit(ctx.term(0));
 
         for (int i=1; i<ctx.term().size();i++){
             this.visit(ctx.additiveOp(i-1));
@@ -464,6 +486,8 @@ public class AContextual extends generated.ParserMainBaseVisitor {
     @Override
     public Object visitFactorIDAST(ParserMain.FactorIDASTContext ctx) {
         if(tabla.buscar(ctx.ID(0).getText()) == null){
+            System.out.println("PARSER ERROR - identificador '" + ctx.ID() +"' no declarado 5");
+            errorMsgs.add(new String("PARSER ERROR - identificador '" + ctx.ID() +"' no declarado"));
             return null;
         }
         String type = tabla.getType(ctx.ID(0).getText());
@@ -578,7 +602,7 @@ public class AContextual extends generated.ParserMainBaseVisitor {
     @Override
     public Object visitArrayLengthAST(ParserMain.ArrayLengthASTContext ctx) {
         if(tabla.buscar(ctx.ID().getText()) == null){
-            System.out.println("PARSER ERROR - identificador '" + ctx.ID() +"' no declarado");
+            System.out.println("PARSER ERROR - identificador '" + ctx.ID() +"' no declarado 6");
             errorMsgs.add(new String("PARSER ERROR - identificador '" + ctx.ID() +"' no declarado"));
         }
         return null;
@@ -659,7 +683,7 @@ public class AContextual extends generated.ParserMainBaseVisitor {
     @Override
     public Object visitBooleanLiteralAST(ParserMain.BooleanLiteralASTContext ctx) {
         Object valor = this.visit(ctx.booleanLiteral());
-        System.out.println("RETORNO: " + valor);
+
         return valor;
     }
 

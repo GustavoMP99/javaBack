@@ -38,7 +38,7 @@ public class TablaSimbolos {
             return nivel;
         }
         public String getType(){
-            return  type;
+            return type;
         }
     }
 

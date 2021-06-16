@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import com.google.gson.*;
 
+import static com.backendJava.ErrorListenerControl.errorMsgs;
+
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 @RequestMapping({"/compilador"})
@@ -24,13 +26,14 @@ public class Controlador {
         CharStream input=null;
         ParseTree tree=null;
         CommonTokenStream tokens = null;
-        ErrorListenerControl errorListener = null;
+        //ErrorListenerControl errorListener = null;
 
         List<String> respuesta = new ArrayList<String>();
 
 
         try {
-            input = CharStreams.fromString(code);
+            //input = CharStreams.fromString(code);
+            input = CharStreams.fromFileName("test.txt");
             inst = new ScannerMain(input);
             tokens = new CommonTokenStream(inst);
             parser = new ParserMain(tokens);
@@ -44,19 +47,22 @@ public class Controlador {
             AContextual ac = new AContextual();
             ac.visit(tree);
 
-            errorListener = new ErrorListenerControl();
+
+            //errorListener = new ErrorListenerControl();
 
             inst.removeErrorListeners();
-            inst.addErrorListener( errorListener );
+            //inst.addErrorListener( errorListener );
+
 
             parser.removeErrorListeners();
-            parser.addErrorListener ( errorListener );
+            //parser.addErrorListener ( errorListener );
 
+            System.out.println("Cantidad de errores: "+errorMsgs.size());
 
-            if (errorListener.hasErrors() == false) {
+            if (errorMsgs.size() <= 0) {
                 System.out.println("Compilación Exitosa!!\n");
                 for (Token t : tokens.getTokens()) {
-                    System.out.println(ScannerMain.VOCABULARY.getSymbolicName(t.getType()) + ":" + t.getText());
+                    // System.out.println(ScannerMain.VOCABULARY.getSymbolicName(t.getType()) + ":" + t.getText()); DESCOMENTAR?
                     Respuesta nr=new Respuesta(ScannerMain.VOCABULARY.getSymbolicName(t.getType()), t.getText());
 
                     Gson gson = new Gson();
@@ -68,13 +74,13 @@ public class Controlador {
             }
             else {
                 System.out.println("Compilación Fallida!!\n");
-                System.out.println(errorListener.toString());
-                Respuesta nr=new Respuesta(errorListener.toString(), "Error");
+                //System.out.println(errorListener.toString());
+                //Respuesta nr=new Respuesta(errorListener.toString(), "Error");
                 Gson gson = new Gson();
-                String JSON = gson.toJson(nr);
-                System.out.println(JSON);
+                //String JSON = gson.toJson(nr);
+                //System.out.println(JSON);
 
-                respuesta.add(errorListener.toString());
+                //respuesta.add(errorListener.toString());
                 return respuesta;
 
             }

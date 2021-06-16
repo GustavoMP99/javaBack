@@ -1,6 +1,7 @@
 int x= 10;
+int z=5;
 if (x==10){
-    x=x+1;
+    x=4+5;
 }
 else{
     x=10;
@@ -10,7 +11,7 @@ print(x);
 class anime {
     string hola= "DSFA ASDF ASDF "
 };
-while(t!= u or d==3){
+while(x!=4 or x==3){
     return false;
 }
 x=u.length;
