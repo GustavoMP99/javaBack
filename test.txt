@@ -1,5 +1,8 @@
 int x= 10;
 int z=5;
+int[] listaInt;
+boolean[] listBolean;
+listaInt[2] = 0;
 if (x==10){
     x=4+5;
 }

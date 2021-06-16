@@ -1,5 +1,6 @@
 package com.backendJava;
 import com.backendJava.AContextual.AContextual;
+import com.backendJava.Interprete.Interprete;
 import generated.*;
 import org.antlr.v4.runtime.*;
 
@@ -59,6 +60,9 @@ public class Controlador {
 
             System.out.println("Cantidad de errores: "+errorMsgs.size());
 
+            Interprete inter = new Interprete();
+            inter.visit(tree);
+
             if (errorMsgs.size() <= 0) {
                 System.out.println("Compilación Exitosa!!\n");
                 for (Token t : tokens.getTokens()) {
@@ -70,6 +74,9 @@ public class Controlador {
                     respuesta.add(JSON);
                 }
                 System.out.println("respuesta " + respuesta);
+
+
+
                 return respuesta;
             }
             else {
@@ -84,7 +91,9 @@ public class Controlador {
                 return respuesta;
 
             }
+
         }
+
         catch ( Exception e) {
             System.out.println("ERROR GETTING ON CATCH");
             e.printStackTrace();

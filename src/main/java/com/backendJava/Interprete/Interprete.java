@@ -3,6 +3,7 @@ package com.backendJava.Interprete;
 import generated.ParserMain;
 import generated.ParserMainBaseVisitor;
 
+import java.util.ArrayList;
 import java.util.Stack;
 
 public class Interprete extends ParserMainBaseVisitor {
@@ -121,17 +122,37 @@ public class Interprete extends ParserMainBaseVisitor {
 
     @Override
     public Object visitVariableDeclAST(ParserMain.VariableDeclASTContext ctx) {
-        return super.visitVariableDeclAST(ctx);
+        String tipo = (String) visit(ctx.type());
+
+        ArrayList<Object> valorAux = new ArrayList<Object>();
+        valorAux.add(null); // Valor por defecto de las variables al ser declaradas: Lista con un objeto en null.
+
+        if (tipo.equals("int") || tipo.equals("int[]")){
+            this.almacenDatos.agregarInstancia(ctx.ID().getText(), valorAux, tipo, ctx);
+        }
+        else if(tipo.equals("string") || tipo.equals("string[]")){
+            this.almacenDatos.agregarInstancia(ctx.ID().getText(),valorAux, tipo, ctx);
+        }
+        else if(tipo.equals("char") || tipo.equals("char[]")){
+            this.almacenDatos.agregarInstancia(ctx.ID().getText(),valorAux, tipo, ctx);
+        }
+        else if(tipo.equals("boolean") || tipo.equals("boolean[]")){
+            this.almacenDatos.agregarInstancia(ctx.ID().getText(),valorAux, tipo, ctx);
+        }
+
+        return null;
     }
 
     @Override
     public Object visitSimpleTypeTAST(ParserMain.SimpleTypeTASTContext ctx) {
-        return super.visitSimpleTypeTAST(ctx);
+        Object retorno = this.visit(ctx.simpleType());
+        return retorno;
     }
 
     @Override
     public Object visitArrayTypeTAST(ParserMain.ArrayTypeTASTContext ctx) {
-        return super.visitArrayTypeTAST(ctx);
+        String tipo=(String) this.visit(ctx.arrayType());
+        return tipo;
     }
 
     @Override
@@ -141,57 +162,72 @@ public class Interprete extends ParserMainBaseVisitor {
 
     @Override
     public Object visitBoleanSTAST(ParserMain.BoleanSTASTContext ctx) {
-        return super.visitBoleanSTAST(ctx);
+        return ctx.BOOLEAN().getText();
     }
 
     @Override
     public Object visitCharSTAST(ParserMain.CharSTASTContext ctx) {
-        return super.visitCharSTAST(ctx);
+        return ctx.CHAR().getText();
     }
 
     @Override
     public Object visitIntSTAST(ParserMain.IntSTASTContext ctx) {
-        return super.visitIntSTAST(ctx);
+        return ctx.INT().getText();
     }
 
     @Override
     public Object visitStringSTAST(ParserMain.StringSTASTContext ctx) {
-        return super.visitStringSTAST(ctx);
+        return ctx.STRING().getText();
     }
 
     @Override
     public Object visitArrayTypeAST(ParserMain.ArrayTypeASTContext ctx) {
-        return super.visitArrayTypeAST(ctx);
+        String tipo=(String) this.visit(ctx.simpleType());
+        return tipo+"[]";
     }
 
     @Override
     public Object visitAssignmentAST(ParserMain.AssignmentASTContext ctx) {
-        return super.visitAssignmentAST(ctx);
+        Object valor = visit(ctx.expression());
+        almacenDatos.setInstancia(ctx.ID(0).getText(), valor);
+        return null;
     }
 
     @Override
     public Object visitArrayAssignamentAST(ParserMain.ArrayAssignamentASTContext ctx) {
+        Object indice = this.visit(ctx.expression(0));
+        System.out.println("índice " + indice);
+
+        Object valor = this.visit(ctx.expression(1));
+        System.out.println("Nuevo valor " + valor);
+
+        almacenDatos.setInstancia(ctx.ID().getText(), indice,valor);
         return super.visitArrayAssignamentAST(ctx);
     }
 
     @Override
     public Object visitExpressionAST(ParserMain.ExpressionASTContext ctx) {
-        return super.visitExpressionAST(ctx);
+        String simpExpre = (String) this.visit(ctx.simpleExpression(0));
+        return simpExpre;
     }
 
     @Override
     public Object visitSimpleExpressionAST(ParserMain.SimpleExpressionASTContext ctx) {
-        return super.visitSimpleExpressionAST(ctx);
+        String term = (String) this.visit(ctx.term(0));
+        return term;
     }
 
     @Override
     public Object visitTermAST(ParserMain.TermASTContext ctx) {
-        return super.visitTermAST(ctx);
+        String factor = (String) this.visit(ctx.factor(0));
+        return factor;
+
     }
 
     @Override
     public Object visitFactorLiteralAST(ParserMain.FactorLiteralASTContext ctx) {
-        return super.visitFactorLiteralAST(ctx);
+        String literal = (String) this.visit(ctx.literal());
+        return literal;
     }
 
     @Override
@@ -336,31 +372,33 @@ public class Interprete extends ParserMainBaseVisitor {
 
     @Override
     public Object visitIntLiteralAST(ParserMain.IntLiteralASTContext ctx) {
-        return super.visitIntLiteralAST(ctx);
+        return ctx.INTLITERAL().getText();
     }
 
     @Override
     public Object visitRealLiteralAST(ParserMain.RealLiteralASTContext ctx) {
-        return super.visitRealLiteralAST(ctx);
+
+        return ctx.REALLITERAL();
     }
 
     @Override
     public Object visitBooleanLiteralAST(ParserMain.BooleanLiteralASTContext ctx) {
-        return super.visitBooleanLiteralAST(ctx);
+        Object valor = this.visit(ctx.booleanLiteral());
+        return valor;
     }
 
     @Override
     public Object visitStringLiteralAST(ParserMain.StringLiteralASTContext ctx) {
-        return super.visitStringLiteralAST(ctx);
+        return ctx.STRINGLITERAL().getText();
     }
 
     @Override
     public Object visitTrueAST(ParserMain.TrueASTContext ctx) {
-        return super.visitTrueAST(ctx);
+        return ctx.TRUE().getText();
     }
 
     @Override
     public Object visitFalseAST(ParserMain.FalseASTContext ctx) {
-        return super.visitFalseAST(ctx);
+        return ctx.FALSE().getText();
     }
 }

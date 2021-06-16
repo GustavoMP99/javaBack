@@ -20,7 +20,7 @@ parser grammar ParserMain;
  formalParam     :       type ID                                                                    #formalParamAST;
  whileStatement  :       WHILE LEFTP expression RIGTHP block                                        #whileStatementAST;
  ifStatement     :       IF LEFTP expression RIGTHP block (ELSE block)?                             #ifStatementAST;
- returnStatement :       RETURN expression                                                         #returnStatementAST;
+ returnStatement :       RETURN expression                                                          #returnStatementAST;
  printStatement  :       PRINT   expression                                                         #printStatementAST;
  classDecl       :       CLASS ID LEFTPB (classVariableDecl)* RIGTHPB                               #classDeclAST;
  classVariableDecl:      simpleType ID (EQUAL expression)?                                          #classVariableDeclAST;
