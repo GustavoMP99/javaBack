@@ -20,8 +20,10 @@ import static com.backendJava.ErrorListenerControl.errorMsgs;
 public class Controlador {
 
     @PostMapping
-    public List<String> allCode(@RequestBody String code ){
+    public ArrayList<Object> allCode(@RequestBody String code ){
         errorMsgs.clear();
+
+
 
         //System.out.println(code);
         ScannerMain inst = null;
@@ -50,13 +52,6 @@ public class Controlador {
             AContextual ac = new AContextual();
             ac.visit(tree);
 
-            //errorListener = new ErrorListenerControl();
-
-            //inst.removeErrorListeners();
-            //inst.addErrorListener( errorListener );
-            //parser.removeErrorListeners();
-            //parser.addErrorListener ( errorListener );
-
             System.out.println("Cantidad de errores: "+errorMsgs.size());
 
             if (errorMsgs.size() <= 0) {
@@ -64,26 +59,15 @@ public class Controlador {
 
                 Interprete inter = new Interprete();
                 inter.visit(tree);
-                System.out.println("Respuesta");
-                System.out.println(inter.retorno);
 
-                respuesta.add((String) inter.retorno);
-                /*for (Token t : tokens.getTokens()) {
-                    // System.out.println(ScannerMain.VOCABULARY.getSymbolicName(t.getType()) + ":" + t.getText()); DESCOMENTAR?
-                    Respuesta nr=new Respuesta(ScannerMain.VOCABULARY.getSymbolicName(t.getType()), t.getText());
+                System.out.println("respuesta " + inter.retorno);
 
-                    Gson gson = new Gson();
-                    String JSON = gson.toJson(nr);
-                    respuesta.add(JSON);
-                }*/
-                System.out.println("respuesta " + respuesta);
-
-                return respuesta;
+                return inter.retorno;
             }
             else {
 
                 System.out.println("Compilación Fallida!!\n");
-                System.out.println(errorMsgs.toString());
+
                 //System.out.println(errorListener.toString());
                 //Respuesta nr=new Respuesta(errorListener.toString(), "Error");
                 Gson gson = new Gson();
@@ -91,9 +75,14 @@ public class Controlador {
                 //System.out.println(JSON);
 
                 //respuesta.add(errorListener.toString());
-                return errorMsgs;
+                ArrayList<Object> errores = new ArrayList<>();
+                System.out.println(errores);
+                errores.add(errorMsgs);
+
+                return errores;
 
             }
+
         }
 
         catch ( Exception e) {
@@ -103,7 +92,18 @@ public class Controlador {
             Gson gson = new Gson();
             String JSON = gson.toJson(nr);
             respuesta.add(JSON);
-            return respuesta;
+            ArrayList<Object> errores = new ArrayList<>();
+            errores.add("Hubo un error en el backend");
+            return errores;
+        }
+    }
+
+    private static boolean isNumeric_(Object cadena){
+        try {
+            Integer.parseInt((String) cadena);
+            return true;
+        } catch (Exception nfe){
+            return false;
         }
     }
 }
