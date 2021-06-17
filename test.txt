@@ -1,7 +1,7 @@
-<<<<<<< HEAD
-int sumar(int num, string name){
-    int total = num+5;
-    return total;
+int name = "Mere";
+
+string saludar(){
+    string saludo = "Hola";
+    return saludo;
 }
-int x = 10;
-print(sumar(x, "hola"));
+print(saludar());

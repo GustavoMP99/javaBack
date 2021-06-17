@@ -95,7 +95,6 @@ public class Interprete extends ParserMainBaseVisitor {
         Object params = this.visit(ctx.formalParam(0));
         ArrayList<Object> paramsAux = new ArrayList<Object>();
         paramsAux.add(params);
-
         for(int i=1; i< ctx.formalParam().size(); i++) {
             params = this.visit(ctx.formalParam(i));
             paramsAux.add(params);
@@ -122,6 +121,7 @@ public class Interprete extends ParserMainBaseVisitor {
 
     @Override
     public Object visitIfStatementAST(ParserMain.IfStatementASTContext ctx) {
+
         return super.visitIfStatementAST(ctx);
     }
 
@@ -132,7 +132,6 @@ public class Interprete extends ParserMainBaseVisitor {
 
     @Override
     public Object visitPrintStatementAST(ParserMain.PrintStatementASTContext ctx) {
-
         Object expr = this.visit(ctx.expression());
         System.out.println(expr);
         return null;
@@ -211,7 +210,6 @@ public class Interprete extends ParserMainBaseVisitor {
 
     @Override
     public Object visitAssignmentAST(ParserMain.AssignmentASTContext ctx) {
-        System.out.println("ASIGNACIÓN!!");
         int valor = (int) visit(ctx.expression());
 
         almacenDatos.setInstancia(ctx.ID(0).getText(), valor);
@@ -238,6 +236,7 @@ public class Interprete extends ParserMainBaseVisitor {
         return valor1;
     }
 
+
     @Override
     public Object visitSimpleExpressionAST(ParserMain.SimpleExpressionASTContext ctx) {
         Object term1 = this.visit(ctx.term(0));
@@ -252,8 +251,9 @@ public class Interprete extends ParserMainBaseVisitor {
 
     private Object operar(Object v1, Object v2, String op){
         Object result=null;
-        if (op.equals("+"))
-            result = ((Integer)v1) + ((Integer)v2);
+        if (op.equals("+")) {
+            result = ((Integer) v1) + ((Integer) v2);
+        }
         else if (op.equals("*"))
             result = ((Integer)v1) * ((Integer)v2);
         else if (op.equals("/"))
@@ -262,6 +262,15 @@ public class Interprete extends ParserMainBaseVisitor {
             result = ((Integer)v1) - ((Integer)v2);
 
         return result;
+    }
+
+    private static boolean isNumeric(Object cadena){
+        try {
+            Integer.parseInt((String) cadena);
+            return true;
+        } catch (NumberFormatException nfe){
+            return false;
+        }
     }
 
     @Override
@@ -353,17 +362,20 @@ public class Interprete extends ParserMainBaseVisitor {
         Object result=null;
         AlmacenDatos.Instancia i = almacenDatos.getInstancia(ctx.ID().getText());
 
-        //lidiar con parametros reales y formales
-        ArrayList<Object> realParams = (ArrayList<Object>) visit(ctx.actualParams());
-        ArrayList<Object> formalParams = (ArrayList<Object>) visit(((ParserMain.FuntionDeclASTContext) i.ctx).formalParams());
+        //parametros reales y formales
+        if( ((ParserMain.FuntionDeclASTContext) i.ctx).formalParams() != null){ // Si tiene parámetros
+            ArrayList<Object> realParams = (ArrayList<Object>) visit(ctx.actualParams());
+            ArrayList<Object> formalParams = (ArrayList<Object>) visit(((ParserMain.FuntionDeclASTContext) i.ctx).formalParams());
 
-        int contador = 0;
-        for (Object fp : formalParams) {
-            this.almacenDatos.setInstancia( fp.toString(), realParams.get(contador));
-            contador++;
+            int contador = 0;
+            for (Object fp : formalParams) {
+                this.almacenDatos.setInstancia( fp.toString(), realParams.get(contador));
+                contador++;
+            }
         }
 
-        //tengo que visitar cuerpo del método
+
+        //Visitar cuerpo del método
         visit(((ParserMain.FuntionDeclASTContext) i.ctx).block());
 
         return result;

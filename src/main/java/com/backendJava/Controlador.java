@@ -21,7 +21,7 @@ public class Controlador {
 
     @PostMapping
     public List<String> allCode(@RequestBody String code ){
-        System.out.println(code);
+        //System.out.println(code);
         ScannerMain inst = null;
         ParserMain parser = null;
         CharStream input=null;
@@ -33,8 +33,8 @@ public class Controlador {
 
 
         try {
-            input = CharStreams.fromString(code);
-            //input = CharStreams.fromFileName("test.txt");
+            //input = CharStreams.fromString(code);
+            input = CharStreams.fromFileName("test.txt");
             inst = new ScannerMain(input);
             tokens = new CommonTokenStream(inst);
             parser = new ParserMain(tokens);
@@ -59,11 +59,13 @@ public class Controlador {
 
             System.out.println("Cantidad de errores: "+errorMsgs.size());
 
-            Interprete inter = new Interprete();
-            inter.visit(tree);
-
             if (errorMsgs.size() <= 0) {
                 System.out.println("Compilación Exitosa!!\n");
+
+                Interprete inter = new Interprete();
+                inter.visit(tree);
+
+
                 for (Token t : tokens.getTokens()) {
                     // System.out.println(ScannerMain.VOCABULARY.getSymbolicName(t.getType()) + ":" + t.getText()); DESCOMENTAR?
                     Respuesta nr=new Respuesta(ScannerMain.VOCABULARY.getSymbolicName(t.getType()), t.getText());

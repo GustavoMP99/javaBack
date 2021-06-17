@@ -129,10 +129,10 @@ public class AContextual extends generated.ParserMainBaseVisitor {
                         System.out.println("PARSER ERROR - Función con retorno no valido");
                     }
 
-                } else {
+                } /*else {
                     errorMsgs.add(new String("PARSER ERROR - Función con variable sin asignar"));
                     System.out.println("PARSER ERROR - Función con variable sin asignar");
-                }
+                }*/
             }
         }
         this.visit(ctx.block());
@@ -141,6 +141,7 @@ public class AContextual extends generated.ParserMainBaseVisitor {
 
     @Override
     public Object visitFormalParamsAST(ParserMain.FormalParamsASTContext ctx) {
+
         this.visit(ctx.formalParam(0));
         if (ctx.COMA() != null) {
             for (int i = 1; i < ctx.formalParam().size(); i++) {
@@ -152,7 +153,6 @@ public class AContextual extends generated.ParserMainBaseVisitor {
 
     @Override
     public Object visitFormalParamAST(ParserMain.FormalParamASTContext ctx) {
-
         String t = (String) this.visit(ctx.type());
         tabla.insertar(ctx.ID().getSymbol(), t, ctx);
         return null;
@@ -162,10 +162,6 @@ public class AContextual extends generated.ParserMainBaseVisitor {
     public Object visitWhileStatementAST(ParserMain.WhileStatementASTContext ctx) {
         String value = (String) this.visit(ctx.expression());
 
-        /*if(tabla.buscar(value) == null) {
-            errorMsgs.add(new String("PARSER ERROR - identificador " + value + " no declarado"));
-            System.out.println("PARSER ERROR - identificador " + value + " no declarado ..");
-        }*/
         this.visit(ctx.block());
         return null;
     }
@@ -229,11 +225,9 @@ public class AContextual extends generated.ParserMainBaseVisitor {
     @Override
     public Object visitVariableDeclAST(ParserMain.VariableDeclASTContext ctx) {
         String tipo = (String) this.visit(ctx.type());
-
         if(!tabla.insertar(ctx.ID().getSymbol(), tipo, ctx)){
-
-            System.out.println("PARSER ERROR - ya existe el identificador " + ctx.ID() + "en el mismo nivel");
-            errorMsgs.add(new String("PARSER ERROR - ya existe el identificador " + ctx.ID() + "en el mismo nivel"));
+            System.out.println("PARSER ERROR - ya existe el identificador " + ctx.ID() + " en el mismo nivel");
+            errorMsgs.add(new String("PARSER ERROR - ya existe el identificador " + ctx.ID() + " en el mismo nivel"));
         } else if (ctx.EQUAL() != null) {
             switch (ctx.type().getText()) {
                 case "char":
@@ -243,13 +237,14 @@ public class AContextual extends generated.ParserMainBaseVisitor {
                     }
                     break;
                 case "int":
-                    if (!isNumeric(ctx.expression().getText())) {
-                        errorMsgs.add(new String("PARSER ERROR - valor de int no aceptado"));
-                        System.out.println("PARSER ERROR - valor de int no aceptado 1");
+                    if (!isNumeric_(ctx.expression().getText())) {
+                        errorMsgs.add(new String("PARSER ERROR - valor "+ ctx.expression().getText() + " no es int"));
+                        System.out.println("PARSER ERROR - valor \"+ ctx.expression().getText() + \" no es int");
                     }
                     break;
                 case "string":
                     if (!(ctx.expression().getText().charAt(0) == "\"".charAt(0) && ctx.expression().getText().charAt(ctx.expression().getText().length() - 1) == "\"".charAt(0))) {
+                        System.out.println("ID " + ctx.ID().getText());
                         errorMsgs.add(new String("PARSER ERROR - valor de string no aceptado"));
                         System.out.println("PARSER ERROR - valor de string no aceptado");
                     } else if (ctx.expression().getText().contains("+")) {
@@ -257,7 +252,7 @@ public class AContextual extends generated.ParserMainBaseVisitor {
                         for (int x = 0; x < temp.length; x++) {
                             if (!(temp[x].charAt(0) == "\"".charAt(0) && temp[x].charAt(temp[x].length() - 1) == "\"".charAt(0))) {
                                 errorMsgs.add(new String("PARSER ERROR - valor de string no aceptado"));
-                                System.out.println("PARSER ERROR - valor de string no aceptado");
+                                System.out.println("PARSER ERROR - valor de string no aceptado 4");
                             }
                         }
                     }
@@ -335,7 +330,7 @@ public class AContextual extends generated.ParserMainBaseVisitor {
                 case "int":
                     if (!isNumeric(ctx.expression().getText())) {
                         errorMsgs.add(new String("PARSER ERROR - valor de int no aceptado"));
-                        System.out.println("PARSER ERROR - valor de int no aceptado 2");
+                        System.out.println("PARSER ERROR - valor de int no aceptado");
                     }
                     break;
                 case "string":
@@ -373,7 +368,7 @@ public class AContextual extends generated.ParserMainBaseVisitor {
     @Override
     public Object visitArrayAssignamentAST(ParserMain.ArrayAssignamentASTContext ctx) {
         if (tabla.buscar(ctx.ID().toString()) == null) {
-            System.out.println("PARSER ERROR - identificador '" + ctx.ID() + "' no declarado 2");
+            System.out.println("PARSER ERROR - identificador '" + ctx.ID() + "' no declarado");
             errorMsgs.add(new String("PARSER ERROR - identificador '" + ctx.ID() + "' no declarado"));
         } else {
             for (int i = 1; i < ctx.expression().size(); i++) {
@@ -442,14 +437,17 @@ public class AContextual extends generated.ParserMainBaseVisitor {
     @Override
     public Object visitSimpleExpressionAST(ParserMain.SimpleExpressionASTContext ctx) {
 
-        String value = (String) this.visit(ctx.term(0));
-
+        String value1 = (String) this.visit(ctx.term(0));
+        String value2;
         for (int i = 1; i < ctx.term().size(); i++) {
             this.visit(ctx.additiveOp(i - 1));
-            this.visit(ctx.term(i));
+            value2 = (String) this.visit(ctx.term(i));
+            if(!value1.equals(value2)){
+                errorMsgs.add(new String("PARSER ERROR - se intenta operar " + value1 + " con " + value2));
+                System.out.println("PARSER ERROR - se intenta operar " + value1 + " con " + value2);
+            }
         }
-
-        return value;
+        return value1;
     }
 
     @Override
@@ -457,13 +455,12 @@ public class AContextual extends generated.ParserMainBaseVisitor {
         String exprType1 = "";
         String exprType2 = "";
         exprType1 = (String) this.visit(ctx.factor(0));
-
         for (int i = 1; i < ctx.factor().size(); i++) {
             this.visit(ctx.multiplicativeOp(i - 1));
             exprType2 = (String) this.visit(ctx.factor(i));
-
-            if (exprType1 != exprType2) //acá no va a pasar porque siempre es int (0) pero para efectos del proyecto es así.
-                System.out.println("ERROR - Tipos de datos incompatibles en el operador..."); //poner operador.
+            if (!exprType1.equals(exprType2))
+                errorMsgs.add(new String("PARSER ERROR - se intenta operar " + exprType1 + " con " + exprType2));
+                System.out.println("PARSER ERROR - se intenta operar ... " + exprType1 + " con " + exprType2);
         }
 
         return exprType1;
@@ -551,7 +548,6 @@ public class AContextual extends generated.ParserMainBaseVisitor {
     @Override
     public Object visitArrayAlocationExpressionAST(ParserMain.ArrayAlocationExpressionASTContext ctx) {
         String tipo = (String) this.visit(ctx.simpleType());
-        System.out.println("Tipo de array expresion es " + tipo);
         this.visit(ctx.expression());
 
         return null;
@@ -565,7 +561,10 @@ public class AContextual extends generated.ParserMainBaseVisitor {
 
     @Override
     public Object visitFuntionCallAST(ParserMain.FuntionCallASTContext ctx) {
-        ctx.ID();
+        if (tabla.buscar(ctx.ID().getText()) == null) {
+            System.out.println("PARSER ERROR - '" + ctx.ID() + "' no existe");
+            errorMsgs.add(new String("PARSER ERROR - '" + ctx.ID() + "' no existe"));
+        }
         ctx.LEFTP();
         if (ctx.actualParams() != null) {
             this.visit(ctx.actualParams());
@@ -664,11 +663,13 @@ public class AContextual extends generated.ParserMainBaseVisitor {
 
     @Override
     public Object visitIntLiteralAST(ParserMain.IntLiteralASTContext ctx) {
+        //System.out.println("IntLiteral " + ctx.INTLITERAL().getSymbol());
         return "int";
     }
 
     @Override
     public Object visitRealLiteralAST(ParserMain.RealLiteralASTContext ctx) {
+        System.out.println("Soy un real literal");
         return "Soy un real literal";
     }
 
@@ -681,7 +682,7 @@ public class AContextual extends generated.ParserMainBaseVisitor {
 
     @Override
     public Object visitStringLiteralAST(ParserMain.StringLiteralASTContext ctx) {
-        return ctx.STRINGLITERAL().getText();
+        return "string";
     }
 
     @Override
@@ -692,6 +693,15 @@ public class AContextual extends generated.ParserMainBaseVisitor {
     @Override
     public Object visitFalseAST(ParserMain.FalseASTContext ctx) {
         return ctx.FALSE().getText();
+    }
+
+    private static boolean isNumeric_(Object cadena){
+        try {
+            Integer.parseInt((String) cadena);
+            return true;
+        } catch (NumberFormatException nfe){
+            return false;
+        }
     }
 
     private boolean isNumeric(String cadena) {
