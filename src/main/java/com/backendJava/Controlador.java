@@ -91,7 +91,7 @@ public class Controlador {
                 //System.out.println(JSON);
 
                 //respuesta.add(errorListener.toString());
-                return respuesta;
+                return errorMsgs;
 
             }
         }
