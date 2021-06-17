@@ -1,7 +1,13 @@
-int name = "Mere";
+string[] listaNombres;
+listaNombres[0] = "Juan";
+listaNombres[2] = "Maria";
+print("Lista de nombres: ");
+print(listaNombres);
 
-string saludar(){
-    string saludo = "Hola";
-    return saludo;
-}
-print(saludar());
+
+int[] listaNumeros;
+listaNumeros[0] = 22;
+listaNumeros[2] = 30;
+print("Lista de edades: ");
+print(listaNumeros);
+

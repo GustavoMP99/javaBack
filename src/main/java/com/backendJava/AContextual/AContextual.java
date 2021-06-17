@@ -238,24 +238,35 @@ public class AContextual extends generated.ParserMainBaseVisitor {
                     break;
                 case "int":
                     if (!isNumeric_(ctx.expression().getText())) {
-                        errorMsgs.add(new String("PARSER ERROR - valor "+ ctx.expression().getText() + " no es int"));
-                        System.out.println("PARSER ERROR - valor \"+ ctx.expression().getText() + \" no es int");
+                        Object e = visit(ctx.expression());
+                        System.out.println(e);
+                        if(!e.equals("int")){
+                            errorMsgs.add(new String("PARSER ERROR - valor incorrecto para int"));
+                            System.out.println("PARSER ERROR - valor incorrecto para int");
+                        }
+
                     }
                     break;
                 case "string":
-                    if (!(ctx.expression().getText().charAt(0) == "\"".charAt(0) && ctx.expression().getText().charAt(ctx.expression().getText().length() - 1) == "\"".charAt(0))) {
-                        System.out.println("ID " + ctx.ID().getText());
-                        errorMsgs.add(new String("PARSER ERROR - valor de string no aceptado"));
-                        System.out.println("PARSER ERROR - valor de string no aceptado");
-                    } else if (ctx.expression().getText().contains("+")) {
-                        String[] temp = ctx.expression().getText().split("\\+");
-                        for (int x = 0; x < temp.length; x++) {
-                            if (!(temp[x].charAt(0) == "\"".charAt(0) && temp[x].charAt(temp[x].length() - 1) == "\"".charAt(0))) {
-                                errorMsgs.add(new String("PARSER ERROR - valor de string no aceptado"));
-                                System.out.println("PARSER ERROR - valor de string no aceptado 4");
+                    if(!isNumeric_(ctx.expression().getText())){ //Ambos son string, sí se acepta
+                        break;
+                    }
+                    /*else {
+                        if (!(ctx.expression().getText().charAt(0) == "\"".charAt(0) && ctx.expression().getText().charAt(ctx.expression().getText().length() - 1) == "\"".charAt(0))) {
+                            System.out.println("ID " + ctx.ID().getText());
+                            errorMsgs.add(new String("PARSER ERROR - valor de string no aceptado"));
+                            System.out.println("PARSER ERROR - valor de string no aceptado");
+                        } else if (ctx.expression().getText().contains("+")) {
+                            String[] temp = ctx.expression().getText().split("\\+");
+                            for (int x = 0; x < temp.length; x++) {
+                                if (!(temp[x].charAt(0) == "\"".charAt(0) && temp[x].charAt(temp[x].length() - 1) == "\"".charAt(0))) {
+                                    errorMsgs.add(new String("PARSER ERROR - valor de string no aceptado"));
+                                    System.out.println("PARSER ERROR - valor de string no aceptado 4");
+                                }
                             }
                         }
-                    }
+                    }*/
+
                     break;
                 case "boolean":
                     if (!(ctx.expression().getText() == "true" || ctx.expression().getText() == "false")) {

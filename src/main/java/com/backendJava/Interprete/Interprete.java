@@ -11,7 +11,7 @@ public class Interprete extends ParserMainBaseVisitor {
     private Stack<Object> pilaExpresiones;
     private AlmacenDatos almacenDatos;
     private Object valorP;
-
+    public Object retorno;
 
     public Interprete(){
         this.pilaExpresiones= new Stack<Object>();
@@ -133,7 +133,8 @@ public class Interprete extends ParserMainBaseVisitor {
     @Override
     public Object visitPrintStatementAST(ParserMain.PrintStatementASTContext ctx) {
         Object expr = this.visit(ctx.expression());
-        System.out.println(expr);
+        //System.out.println(expr);
+        retorno = expr;
         return null;
     }
 
@@ -252,7 +253,13 @@ public class Interprete extends ParserMainBaseVisitor {
     private Object operar(Object v1, Object v2, String op){
         Object result=null;
         if (op.equals("+")) {
-            result = ((Integer) v1) + ((Integer) v2);
+            if((!isNumeric(v1)) && (!isNumeric(v2))){
+                result = v1 + (String) v2;
+                result = ((String) result).replace('"', ' ');
+            }
+            else
+                result = ((Integer) v1) + ((Integer) v2);
+
         }
         else if (op.equals("*"))
             result = ((Integer)v1) * ((Integer)v2);

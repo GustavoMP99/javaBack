@@ -21,6 +21,8 @@ public class Controlador {
 
     @PostMapping
     public List<String> allCode(@RequestBody String code ){
+        errorMsgs.clear();
+
         //System.out.println(code);
         ScannerMain inst = null;
         ParserMain parser = null;
@@ -33,8 +35,8 @@ public class Controlador {
 
 
         try {
-            //input = CharStreams.fromString(code);
-            input = CharStreams.fromFileName("test.txt");
+            input = CharStreams.fromString(code);
+            //input = CharStreams.fromFileName("test.txt");
             inst = new ScannerMain(input);
             tokens = new CommonTokenStream(inst);
             parser = new ParserMain(tokens);
@@ -50,11 +52,9 @@ public class Controlador {
 
             //errorListener = new ErrorListenerControl();
 
-            inst.removeErrorListeners();
+            //inst.removeErrorListeners();
             //inst.addErrorListener( errorListener );
-
-
-            parser.removeErrorListeners();
+            //parser.removeErrorListeners();
             //parser.addErrorListener ( errorListener );
 
             System.out.println("Cantidad de errores: "+errorMsgs.size());
@@ -64,22 +64,26 @@ public class Controlador {
 
                 Interprete inter = new Interprete();
                 inter.visit(tree);
+                System.out.println("Respuesta");
+                System.out.println(inter.retorno);
 
-
-                for (Token t : tokens.getTokens()) {
+                respuesta.add((String) inter.retorno);
+                /*for (Token t : tokens.getTokens()) {
                     // System.out.println(ScannerMain.VOCABULARY.getSymbolicName(t.getType()) + ":" + t.getText()); DESCOMENTAR?
                     Respuesta nr=new Respuesta(ScannerMain.VOCABULARY.getSymbolicName(t.getType()), t.getText());
 
                     Gson gson = new Gson();
                     String JSON = gson.toJson(nr);
                     respuesta.add(JSON);
-                }
+                }*/
                 System.out.println("respuesta " + respuesta);
 
                 return respuesta;
             }
             else {
-                //System.out.println("Compilación Fallida!!\n");
+
+                System.out.println("Compilación Fallida!!\n");
+                System.out.println(errorMsgs.toString());
                 //System.out.println(errorListener.toString());
                 //Respuesta nr=new Respuesta(errorListener.toString(), "Error");
                 Gson gson = new Gson();
@@ -90,7 +94,6 @@ public class Controlador {
                 return respuesta;
 
             }
-
         }
 
         catch ( Exception e) {
