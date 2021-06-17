@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 int sumar(int num, string name){
     int total = num+5;
     return total;
