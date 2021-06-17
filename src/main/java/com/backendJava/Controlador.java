@@ -23,7 +23,6 @@ public class Controlador {
     public ArrayList<Object> allCode(@RequestBody String code ){
         errorMsgs.clear();
 
-
         //System.out.println(code);
         ScannerMain inst = null;
         ParserMain parser = null;
