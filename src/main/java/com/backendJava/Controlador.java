@@ -33,8 +33,8 @@ public class Controlador {
 
 
         try {
-            //input = CharStreams.fromString(code);
-            input = CharStreams.fromFileName("test.txt");
+            input = CharStreams.fromString(code);
+            //input = CharStreams.fromFileName("test.txt");
             inst = new ScannerMain(input);
             tokens = new CommonTokenStream(inst);
             parser = new ParserMain(tokens);
@@ -47,7 +47,6 @@ public class Controlador {
 
             AContextual ac = new AContextual();
             ac.visit(tree);
-
 
             //errorListener = new ErrorListenerControl();
 
@@ -75,12 +74,10 @@ public class Controlador {
                 }
                 System.out.println("respuesta " + respuesta);
 
-
-
                 return respuesta;
             }
             else {
-                System.out.println("Compilación Fallida!!\n");
+                //System.out.println("Compilación Fallida!!\n");
                 //System.out.println(errorListener.toString());
                 //Respuesta nr=new Respuesta(errorListener.toString(), "Error");
                 Gson gson = new Gson();

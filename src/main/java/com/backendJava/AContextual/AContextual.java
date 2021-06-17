@@ -128,10 +128,6 @@ public class AContextual extends generated.ParserMainBaseVisitor {
                         System.out.println("PARSER ERROR - Función con retorno no valido");
                     }
                 }
-                else{
-                    errorMsgs.add(new String("PARSER ERROR - Función con variable sin asignar"));
-                    System.out.println("PARSER ERROR - Función con variable sin asignar");
-                }
             }
         }
         this.visit(ctx.block());
@@ -231,6 +227,7 @@ public class AContextual extends generated.ParserMainBaseVisitor {
         String tipo = (String) this.visit(ctx.type());
 
         if(!tabla.insertar(ctx.ID().getSymbol(), tipo, ctx)){
+
             System.out.println("PARSER ERROR - ya existe el identificador " + ctx.ID() + "en el mismo nivel");
             errorMsgs.add(new String("PARSER ERROR - ya existe el identificador " + ctx.ID() + "en el mismo nivel"));
         }
@@ -247,7 +244,7 @@ public class AContextual extends generated.ParserMainBaseVisitor {
                 case "int" :
                     if (!isNumeric(ctx.expression().getText())){
                         errorMsgs.add(new String("PARSER ERROR - valor de int no aceptado"));
-                        System.out.println("PARSER ERROR - valor de int no aceptado");
+                        System.out.println("PARSER ERROR - valor de int no aceptado 1");
                     }
                     break;
                 case "string" :
@@ -485,8 +482,10 @@ public class AContextual extends generated.ParserMainBaseVisitor {
 
     @Override
     public Object visitFactorIDAST(ParserMain.FactorIDASTContext ctx) {
+        //System.out.println("**** tabla ****");
+        //tabla.imprimir();
         if(tabla.buscar(ctx.ID(0).getText()) == null){
-            System.out.println("PARSER ERROR - identificador '" + ctx.ID() +"' no declarado 5");
+            System.out.println("PARSER ERROR - identificador '" + ctx.ID(0).getText() +"' no declarado 5");
             errorMsgs.add(new String("PARSER ERROR - identificador '" + ctx.ID() +"' no declarado"));
             return null;
         }

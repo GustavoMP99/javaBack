@@ -1,23 +1,6 @@
-int x= 10;
-int z=5;
-int[] listaInt;
-boolean[] listBolean;
-listaInt[2] = 0;
-if (x==10){
-    x=4+5;
+int sumar(int num, string name){
+    int total = num+5;
+    return total;
 }
-else{
-    x=10;
-}
-print(x);
-
-class anime {
-    string hola= "DSFA ASDF ASDF "
-};
-while(x!=4 or x==3){
-    return false;
-}
-x=u.length;
-char anastacia (int a, char u){
-    return a;
-}
+int x = 10;
+print(sumar(x, "hola"));

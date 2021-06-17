@@ -19,20 +19,15 @@ public class TablaSimbolos {
         Token tok;
         String type;
         int nivel;
-        //int valor;
         ParserRuleContext declCtx;
 
         public Ident(Token t,String tp, ParserRuleContext decl){
             tok = t;
             type = tp;
             nivel=nivelActual;
-            //valor = 0;
             declCtx=decl;
         }
 
-        /*public void setValue(int v){
-            valor = v;
-        }*/
 
         public int getNivel() {
             return nivel;

@@ -2,6 +2,7 @@ package com.backendJava.Interprete;
 
 import generated.ParserMain;
 import generated.ParserMainBaseVisitor;
+import org.yaml.snakeyaml.events.Event;
 
 import java.util.ArrayList;
 import java.util.Stack;
@@ -9,6 +10,8 @@ import java.util.Stack;
 public class Interprete extends ParserMainBaseVisitor {
     private Stack<Object> pilaExpresiones;
     private AlmacenDatos almacenDatos;
+    private Object valorP;
+
 
     public Interprete(){
         this.pilaExpresiones= new Stack<Object>();
@@ -72,22 +75,44 @@ public class Interprete extends ParserMainBaseVisitor {
 
     @Override
     public Object visitBlockAST(ParserMain.BlockASTContext ctx) {
-        return super.visitBlockAST(ctx);
+        Object statements = null;
+        for(int i=0; i< ctx.statement().size(); i++) {
+            statements = this.visit(ctx.statement(i));
+        }
+        return statements;
     }
 
     @Override
     public Object visitFuntionDeclAST(ParserMain.FuntionDeclASTContext ctx) {
-        return super.visitFuntionDeclAST(ctx);
+        ArrayList<Object> valorAux = new ArrayList<Object>();
+        valorAux.add(null);
+        this.almacenDatos.agregarInstancia(ctx.ID().getText(), valorAux, "function", ctx);
+        return null;
     }
 
     @Override
-    public Object visitFormalParamsAST(ParserMain.FormalParamsASTContext ctx) {
-        return super.visitFormalParamsAST(ctx);
+    public ArrayList<Object> visitFormalParamsAST(ParserMain.FormalParamsASTContext ctx) {
+        Object params = this.visit(ctx.formalParam(0));
+        ArrayList<Object> paramsAux = new ArrayList<Object>();
+        paramsAux.add(params);
+
+        for(int i=1; i< ctx.formalParam().size(); i++) {
+            params = this.visit(ctx.formalParam(i));
+            paramsAux.add(params);
+        }
+        return paramsAux;
     }
 
     @Override
     public Object visitFormalParamAST(ParserMain.FormalParamASTContext ctx) {
-        return super.visitFormalParamAST(ctx);
+        String tipo = (String) visit(ctx.type());
+
+        ArrayList<Object> valorAux = new ArrayList<Object>();
+        valorAux.add(null);
+
+        this.almacenDatos.agregarInstancia(ctx.ID().getText(), valorAux, tipo, ctx);
+
+        return ctx.ID();
     }
 
     @Override
@@ -107,7 +132,10 @@ public class Interprete extends ParserMainBaseVisitor {
 
     @Override
     public Object visitPrintStatementAST(ParserMain.PrintStatementASTContext ctx) {
-        return super.visitPrintStatementAST(ctx);
+
+        Object expr = this.visit(ctx.expression());
+        System.out.println(expr);
+        return null;
     }
 
     @Override
@@ -125,20 +153,15 @@ public class Interprete extends ParserMainBaseVisitor {
         String tipo = (String) visit(ctx.type());
 
         ArrayList<Object> valorAux = new ArrayList<Object>();
-        valorAux.add(null); // Valor por defecto de las variables al ser declaradas: Lista con un objeto en null.
 
-        if (tipo.equals("int") || tipo.equals("int[]")){
-            this.almacenDatos.agregarInstancia(ctx.ID().getText(), valorAux, tipo, ctx);
+        if(ctx.EQUAL() != null){ // Si fue declarada y asignada.
+            Object value = this.visit(ctx.expression());
+            valorAux.add(value);
         }
-        else if(tipo.equals("string") || tipo.equals("string[]")){
-            this.almacenDatos.agregarInstancia(ctx.ID().getText(),valorAux, tipo, ctx);
-        }
-        else if(tipo.equals("char") || tipo.equals("char[]")){
-            this.almacenDatos.agregarInstancia(ctx.ID().getText(),valorAux, tipo, ctx);
-        }
-        else if(tipo.equals("boolean") || tipo.equals("boolean[]")){
-            this.almacenDatos.agregarInstancia(ctx.ID().getText(),valorAux, tipo, ctx);
-        }
+        else // Valor por defecto null
+            valorAux.add(null);
+
+        this.almacenDatos.agregarInstancia(ctx.ID().getText(), valorAux, tipo, ctx);
 
         return null;
     }
@@ -188,51 +211,86 @@ public class Interprete extends ParserMainBaseVisitor {
 
     @Override
     public Object visitAssignmentAST(ParserMain.AssignmentASTContext ctx) {
-        Object valor = visit(ctx.expression());
+        System.out.println("ASIGNACIÓN!!");
+        int valor = (int) visit(ctx.expression());
+
         almacenDatos.setInstancia(ctx.ID(0).getText(), valor);
+
         return null;
     }
 
     @Override
     public Object visitArrayAssignamentAST(ParserMain.ArrayAssignamentASTContext ctx) {
-        Object indice = this.visit(ctx.expression(0));
-        System.out.println("índice " + indice);
-
+        int indice = (int) this.visit(ctx.expression(0));
         Object valor = this.visit(ctx.expression(1));
-        System.out.println("Nuevo valor " + valor);
 
         almacenDatos.setInstancia(ctx.ID().getText(), indice,valor);
-        return super.visitArrayAssignamentAST(ctx);
+        return null;
     }
 
     @Override
     public Object visitExpressionAST(ParserMain.ExpressionASTContext ctx) {
-        String simpExpre = (String) this.visit(ctx.simpleExpression(0));
-        return simpExpre;
+        Object valor1 = this.visit(ctx.simpleExpression(0));
+        if(valor1==null)
+            return valorP;
+
+        valorP =valor1;
+        return valor1;
     }
 
     @Override
     public Object visitSimpleExpressionAST(ParserMain.SimpleExpressionASTContext ctx) {
-        String term = (String) this.visit(ctx.term(0));
-        return term;
+        Object term1 = this.visit(ctx.term(0));
+        for(int i=1; i< ctx.term().size(); i++) {
+            String op = (String) this.visit(ctx.additiveOp(i-1));
+            Object v2 = this.visit(ctx.term(i));
+            if (term1 != null && v2 != null)
+                term1 = operar(term1,v2,op);
+        }
+        return term1;
+    }
+
+    private Object operar(Object v1, Object v2, String op){
+        Object result=null;
+        if (op.equals("+"))
+            result = ((Integer)v1) + ((Integer)v2);
+        else if (op.equals("*"))
+            result = ((Integer)v1) * ((Integer)v2);
+        else if (op.equals("/"))
+            result = ((Integer)v1) / ((Integer)v2);
+        else if (op.equals("-"))
+            result = ((Integer)v1) - ((Integer)v2);
+
+        return result;
     }
 
     @Override
     public Object visitTermAST(ParserMain.TermASTContext ctx) {
-        String factor = (String) this.visit(ctx.factor(0));
-        return factor;
-
+        //Object factor = this.visit(ctx.factor(0));
+        Object fact1 = this.visit(ctx.factor(0));
+        for(int i=1; i< ctx.factor().size(); i++) {
+            String op = (String) this.visit(ctx.multiplicativeOp(i-1));
+            Object v2 = this.visit(ctx.factor(i));
+            fact1 = operar(fact1,v2,op);
+        }
+        return fact1;
     }
 
     @Override
     public Object visitFactorLiteralAST(ParserMain.FactorLiteralASTContext ctx) {
-        String literal = (String) this.visit(ctx.literal());
+        Object literal = this.visit(ctx.literal());
         return literal;
     }
 
     @Override
     public Object visitFactorIDAST(ParserMain.FactorIDASTContext ctx) {
-        return super.visitFactorIDAST(ctx);
+        AlmacenDatos.Instancia inst = almacenDatos.getInstancia(ctx.ID(0).getText());
+        if(inst.tipo.contains("[]")){
+            return inst.valor_;
+        }
+        else{
+            return inst.valor_.get(0);
+        }
     }
 
     @Override
@@ -292,12 +350,36 @@ public class Interprete extends ParserMainBaseVisitor {
 
     @Override
     public Object visitFuntionCallAST(ParserMain.FuntionCallASTContext ctx) {
-        return super.visitFuntionCallAST(ctx);
+        Object result=null;
+        AlmacenDatos.Instancia i = almacenDatos.getInstancia(ctx.ID().getText());
+
+        //lidiar con parametros reales y formales
+        ArrayList<Object> realParams = (ArrayList<Object>) visit(ctx.actualParams());
+        ArrayList<Object> formalParams = (ArrayList<Object>) visit(((ParserMain.FuntionDeclASTContext) i.ctx).formalParams());
+
+        int contador = 0;
+        for (Object fp : formalParams) {
+            this.almacenDatos.setInstancia( fp.toString(), realParams.get(contador));
+            contador++;
+        }
+
+        //tengo que visitar cuerpo del método
+        visit(((ParserMain.FuntionDeclASTContext) i.ctx).block());
+
+        return result;
     }
 
     @Override
-    public Object visitActualParamsAST(ParserMain.ActualParamsASTContext ctx) {
-        return super.visitActualParamsAST(ctx);
+    public ArrayList<Object> visitActualParamsAST(ParserMain.ActualParamsASTContext ctx) {
+        Object params = this.visit(ctx.expression(0));
+        ArrayList<Object> paramsAux = new ArrayList<Object>();
+        paramsAux.add(params);
+
+        for(int i=1; i< ctx.expression().size(); i++) {
+            params = this.visit(ctx.expression(i));
+            paramsAux.add(params);
+        }
+        return paramsAux;
     }
 
     @Override
@@ -307,12 +389,13 @@ public class Interprete extends ParserMainBaseVisitor {
 
     @Override
     public Object visitArrayLengthAST(ParserMain.ArrayLengthASTContext ctx) {
-        return super.visitArrayLengthAST(ctx);
+
+        return (almacenDatos.getInstancia(ctx.ID().getText())).valor_.size();
     }
 
     @Override
     public Object visitMinusOPAST(ParserMain.MinusOPASTContext ctx) {
-        return super.visitMinusOPAST(ctx);
+        return ctx.MINUS().getSymbol();
     }
 
     @Override
@@ -342,42 +425,41 @@ public class Interprete extends ParserMainBaseVisitor {
 
     @Override
     public Object visitSumOPAST(ParserMain.SumOPASTContext ctx) {
-        return super.visitSumOPAST(ctx);
+        return ctx.SUM().getText();
     }
 
     @Override
     public Object visitSubtractOPAST(ParserMain.SubtractOPASTContext ctx) {
-        return super.visitSubtractOPAST(ctx);
+        return ctx.SUBTRACT().getText();
     }
 
     @Override
     public Object visitOrOPAST(ParserMain.OrOPASTContext ctx) {
-        return super.visitOrOPAST(ctx);
+        return ctx.OR().getText();
     }
 
     @Override
     public Object visitMultOPAST(ParserMain.MultOPASTContext ctx) {
-        return super.visitMultOPAST(ctx);
+        return ctx.MULT().getText();
     }
 
     @Override
     public Object visitDivOPAST(ParserMain.DivOPASTContext ctx) {
-        return super.visitDivOPAST(ctx);
+        return ctx.DIV().getText();
     }
 
     @Override
     public Object visitAndOPAST(ParserMain.AndOPASTContext ctx) {
-        return super.visitAndOPAST(ctx);
+        return ctx.AND().getText();
     }
 
     @Override
     public Object visitIntLiteralAST(ParserMain.IntLiteralASTContext ctx) {
-        return ctx.INTLITERAL().getText();
+        return Integer.parseInt(ctx.INTLITERAL().getText());
     }
 
     @Override
     public Object visitRealLiteralAST(ParserMain.RealLiteralASTContext ctx) {
-
         return ctx.REALLITERAL();
     }
 
