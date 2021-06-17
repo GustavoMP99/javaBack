@@ -24,7 +24,6 @@ public class Controlador {
         errorMsgs.clear();
 
 
-
         //System.out.println(code);
         ScannerMain inst = null;
         ParserMain parser = null;
